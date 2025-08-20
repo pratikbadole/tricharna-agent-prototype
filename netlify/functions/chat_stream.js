@@ -1,8 +1,7 @@
-const { StreamingResponse } = require("@netlify/functions");
 const OpenAI = require("openai");
 const { OPENAI_API_KEY, retrieveContext } = require("./_shared/common.js");
 
-// Helper: parse proposed_action JSON at the end (either fenced or raw)
+// Parse proposed_action JSON at the end (either fenced or raw)
 function extractActionFrom(text) {
   const fence = text.match(/```[\s\S]*?```/);
   if (fence) {
@@ -15,8 +14,8 @@ function extractActionFrom(text) {
 exports.handler = async (event) => {
   const stream = new ReadableStream({
     async start(controller) {
-      const END_MARK = "<|END_OF_STREAM|>";
       const enc = new TextEncoder();
+      const END_MARK = "<|END_OF_STREAM|>";
       const write = (s) => controller.enqueue(enc.encode(typeof s === "string" ? s : String(s)));
 
       try {
@@ -31,10 +30,12 @@ exports.handler = async (event) => {
 
         if (!message) { write("message required"); controller.close(); return; }
 
+        // RAG context (best-effort)
         const ctx = await retrieveContext(message, 3);
         const ctxText = ctx.map(d => `# ${d.title}\n${d.content || ''}`).join("\n\n---\n\n");
 
         if (!OPENAI_API_KEY) {
+          // Mock streaming so UI still looks alive
           const mock = `🤖 (mock) I understood: "${message}".\nThis is a demo stream.\n\nDone.`;
           for (const ch of mock) { write(ch); await new Promise(r => setTimeout(r, 8)); }
           write(`\n${END_MARK}` + JSON.stringify({ proposed_action: null, contextDocs: ctx.map(d => ({ id: d.id, title: d.title })) }));
@@ -42,6 +43,7 @@ exports.handler = async (event) => {
         }
 
         const client = new OpenAI({ apiKey: OPENAI_API_KEY });
+
         const systemPrompt = `You are an AI IT Helpdesk assistant for corporate users.
 - Answer ANY IT question clearly and concisely, using markdown lists where helpful.
 - Prefer step-by-step diagnostics before escalation.
@@ -53,6 +55,7 @@ OR
 Do NOT include any other fenced JSON.`;
 
         let full = "";
+
         const resp = await client.chat.completions.create({
           model: "gpt-4o-mini",
           temperature: 0.2,
@@ -82,7 +85,8 @@ Do NOT include any other fenced JSON.`;
     }
   });
 
-  return new StreamingResponse(stream, {
+  // Return a standard Web Response with the stream
+  return new Response(stream, {
     headers: { "Content-Type": "text/plain; charset=utf-8" }
   });
 };
