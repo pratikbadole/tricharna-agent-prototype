@@ -1,8 +1,8 @@
 import { KNOWLEDGE, searchKnowledge } from './knowledge.js';
 
 const AGENT_CONFIG = {
-  // use same-origin Netlify Functions (no CORS headaches)
-  apiBase: "/api"
+  // Use Edge streaming endpoint
+  apiBase: "/api/chat/stream"
 };
 
 const state = {
@@ -39,7 +39,7 @@ function initLogin(){
       initTickets();
       initKnowledge();
       initWeatherPanel();
-      addAssistant("Welcome! I'm your IT Support Agent. Ask about your IT issues—Wi-Fi, VPN, Outlook, printers, onboarding—and I’ll help. I can also create a ticket if needed.");
+      addAssistant("Welcome! I'm your IT Support Agent. Ask about Wi-Fi, VPN, Outlook, printers, onboarding — I’ll help. I can also create a ticket if needed.");
     } else {
       alert('Invalid credentials (use john@tricharna.com / demo123)');
     }
@@ -62,18 +62,34 @@ function initNav(){
   show('chat');
 }
 
-function renderMessage(role, text){
-  const msg = el('div', { className:'message '+role }, text);
+// --- Rendering helpers (Markdown + streaming) ---
+function renderMessage(role, html){
+  const msg = el('div', { className:'message '+role });
+  msg.innerHTML = html;
   $('#chatMessages').append(msg);
   $('#chatMessages').scrollTop = $('#chatMessages').scrollHeight;
+  return msg;
 }
+
+function md(htmlish){
+  // Use CDN-marked if present; else fall back to simple newline -> <br>
+  if (window.marked && window.marked.parse) return window.marked.parse(htmlish);
+  return (htmlish || '').replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\n/g,'<br>');
+}
+
 function addUser(text){
   state.messages.push({ role:'user', content:text });
   renderMessage('user', text);
 }
 function addAssistant(text){
   state.messages.push({ role:'assistant', content:text });
-  renderMessage('assistant', text);
+  renderMessage('assistant', md(text));
+}
+function addAssistantNode(){
+  const msg = el('div', { className:'message assistant' });
+  $('#chatMessages').append(msg);
+  $('#chatMessages').scrollTop = $('#chatMessages').scrollHeight;
+  return msg;
 }
 
 function initChat(){
@@ -87,8 +103,8 @@ function initChat(){
   });
 }
 
+// --- Local tools (unchanged) ---
 function kbSearchTool(q){ return searchKnowledge(q); }
-
 function createTicketTool(payload){
   const id = 'T'+(Date.now().toString(36));
   const ticket = { id, status:'open', createdAt: new Date().toISOString(), ...payload };
@@ -113,12 +129,11 @@ async function getWeatherTool(city){
   } catch(e){ return { ok:false, error:e.message }; }
 }
 
-// ---- NEW: backend-connected respond() + action execution ----
+// --- Real-time streaming chat ---
 async function respond(text){
-  // If apiBase is set, use live backend
   if (AGENT_CONFIG.apiBase) {
     try{
-      const res = await fetch(`${AGENT_CONFIG.apiBase}/chat`, {
+      const res = await fetch(AGENT_CONFIG.apiBase, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -126,21 +141,47 @@ async function respond(text){
           email: state.user?.email || "guest@demo.com"
         })
       });
-      const data = await res.json();
 
-      if (data.answer) {
-        addAssistant(data.answer);
-      } else {
-        addAssistant("I didn’t quite catch that. Can you rephrase?");
+      if (!res.body || !res.body.getReader) {
+        const fallback = await res.text();
+        addAssistant(fallback || "I couldn’t stream a reply.");
+        return;
       }
 
-      if (data.proposed_action) {
-        // Ask user before executing any privileged action
-        const pa = data.proposed_action;
-        const confirmMsg = `The assistant suggests: ${pa.proposed_action}. Proceed?`;
-        const ok = window.confirm(confirmMsg);
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder("utf-8");
+      const END_MARK = "<|END_OF_STREAM|>";
+      let buffer = "";
+      let metaJson = null;
+      const node = addAssistantNode();
+
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        const chunk = decoder.decode(value, { stream: true });
+        buffer += chunk;
+
+        const endIdx = buffer.indexOf(END_MARK);
+        if (endIdx !== -1) {
+          // Render final text before end mark
+          const textPart = buffer.slice(0, endIdx);
+          node.innerHTML = md(textPart);
+          // Anything after END_MARK is meta JSON
+          const rest = buffer.slice(endIdx + END_MARK.length);
+          try { metaJson = JSON.parse(rest.trim()); } catch {}
+          break;
+        } else {
+          node.innerHTML = md(buffer);
+        }
+        $('#chatMessages').scrollTop = $('#chatMessages').scrollHeight;
+      }
+
+      // Execute proposed action AFTER stream finishes (if present)
+      if (metaJson && metaJson.proposed_action) {
+        const pa = metaJson.proposed_action;
+        const ok = window.confirm(`The assistant suggests: ${pa.proposed_action}. Proceed?`);
         if (ok) {
-          const execRes = await fetch(`${AGENT_CONFIG.apiBase}/execute`, {
+          const execRes = await fetch("/api/execute", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ action: pa.proposed_action, params: pa.params || {} })
@@ -157,15 +198,14 @@ async function respond(text){
           addAssistant("Okay, I won't proceed with that action.");
         }
       }
-
       return;
     } catch(e){
       addAssistant("⚠️ Error contacting backend: " + e.message + ". Falling back to local tools.");
-      // fall through to local demo tools below
+      // fall through to local demo tools
     }
   }
 
-  // --------- Local fallback demo logic (runs if backend fails) ----------
+  // ---- Local fallback demo logic (only if backend fails) ----
   const t = text.toLowerCase();
   if (t.includes('create') && t.includes('ticket')){
     const ticket = createTicketTool({ title: text, category:'general', priority:'normal', description:text });
@@ -195,6 +235,7 @@ async function respond(text){
   addAssistant("Got it. I can create tickets, search the knowledge base, or fetch weather. Try: “create a ticket to reset VPN”, “weather in Berlin”, or “search VPN drops”."); 
 }
 
+// --- Weather/Tickets/Knowledge UI (unchanged) ---
 function initWeatherPanel(){
   $('#weatherFetchBtn')?.addEventListener('click', async ()=>{
     const city = $('#weatherCity').value.trim() || 'Berlin';
