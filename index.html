@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tricharna IT Support — AI Agent Prototype</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+
+  <!-- Login Screen -->
+  <section id="loginScreen" class="screen screen--login">
+    <div class="login-card">
+      <h1 class="brand">竹 Tricharna Tech</h1>
+      <h2 class="subtitle">Access Premium Support</h2>
+
+      <form id="loginForm" class="login-form" method="post" action="">
+        <label class="form-label" for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="john@tricharna.com" required />
+
+        <label class="form-label" for="password">Password</label>
+        <input id="password" name="password" type="password" placeholder="demo123" required />
+
+        <button class="btn btn--primary" type="submit">Login</button>
+
+        <p class="hint">Demo creds — Email: <b>john@tricharna.com</b> &nbsp; Password: <b>demo123</b></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Main App -->
+  <section id="mainApp" class="screen screen--app" style="display:none">
+    <header class="app-header">
+      <div class="brand">竹 Tricharna Tech</div>
+      <nav class="nav">
+        <button class="nav-btn active" data-view="chat">💬 Chat</button>
+        <button class="nav-btn" data-view="tickets">🎫 Tickets</button>
+        <button class="nav-btn" data-view="knowledge">📚 Knowledge</button>
+      </nav>
+      <button id="logoutBtn" class="btn">Logout</button>
+    </header>
+
+    <main class="app-main">
+      <!-- Chat View -->
+      <section id="chatView" class="view" data-view="chat" style="display:block">
+        <div class="chat-layout">
+          <div class="chat-pane">
+            <div id="chatMessages" class="chat-messages" aria-live="polite"></div>
+            <form id="chatForm" class="chat-form">
+              <textarea id="chatInput" rows="2" placeholder="Ask me anything about tickets, knowledge, or weather…"></textarea>
+              <button type="submit" class="btn btn--primary">Send</button>
+            </form>
+          </div>
+          <aside class="side-pane">
+            <div class="card">
+              <h3>Weather</h3>
+              <div id="weatherPanel" class="weather-panel">
+                <label class="form-label" for="weatherCity">City</label>
+                <input id="weatherCity" placeholder="Berlin" />
+                <button id="weatherFetchBtn" class="btn btn--ghost">Get Weather</button>
+                <pre id="weatherOutput" class="weather-output">—</pre>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- Tickets View -->
+      <section id="ticketsView" class="view" data-view="tickets" style="display:none">
+        <div class="toolbar">
+          <button id="createTicketBtn" class="btn btn--primary">+ Create Ticket</button>
+        </div>
+        <div id="ticketsContainer" class="tickets"></div>
+      </section>
+
+      <!-- Knowledge View -->
+      <section id="knowledgeView" class="view" data-view="knowledge" style="display:none">
+        <div class="toolbar">
+          <input id="knowledgeSearch" placeholder="Search knowledge…" />
+          <div class="filters">
+            <button class="filter-btn" data-cat="all">All</button>
+            <button class="filter-btn" data-cat="email">Email</button>
+            <button class="filter-btn" data-cat="vpn">VPN</button>
+            <button class="filter-btn" data-cat="hardware">Hardware</button>
+          </div>
+        </div>
+        <div id="knowledgeContainer" class="knowledge"></div>
+      </section>
+    </main>
+  </section>
+
+  <!-- App code (ES module) -->
+  <script type="module" src="./app.js"></script>
+  <script type="module" src="./knowledge.js"></script>
+</body>
+</html>
