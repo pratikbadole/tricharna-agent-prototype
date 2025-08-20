@@ -132,9 +132,11 @@ async function respond(text){
   if (AGENT_CONFIG.apiBase) {
     try{
       const res = await fetch(AGENT_CONFIG.apiBase, {
+      /* include recent conversation history so the model can finalize actions */
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          history: (state.messages || []).slice(-8).map(m => ({ role: m.role, content: m.content })),
           message: text,
           email: state.user?.email || "guest@demo.com"
         })
