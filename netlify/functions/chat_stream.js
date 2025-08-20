@@ -13,22 +13,14 @@ function extractActionFrom(text) {
 }
 
 exports.handler = async (event) => {
-  // Build a Web ReadableStream (Node 18+ has Web Streams built-in)
   const stream = new ReadableStream({
     async start(controller) {
       const END_MARK = "<|END_OF_STREAM|>";
       const enc = new TextEncoder();
-
-      function write(s) {
-        controller.enqueue(enc.encode(typeof s === "string" ? s : String(s)));
-      }
+      const write = (s) => controller.enqueue(enc.encode(typeof s === "string" ? s : String(s)));
 
       try {
-        if (event.httpMethod !== "POST") {
-          write("Method not allowed");
-          controller.close();
-          return;
-        }
+        if (event.httpMethod !== "POST") { write("Method not allowed"); controller.close(); return; }
 
         let message = "", email = "";
         try {
@@ -37,30 +29,19 @@ exports.handler = async (event) => {
           email = body.email || "";
         } catch {}
 
-        if (!message) {
-          write("message required");
-          controller.close();
-          return;
-        }
+        if (!message) { write("message required"); controller.close(); return; }
 
-        // Retrieve RAG context (best-effort; falls back automatically)
         const ctx = await retrieveContext(message, 3);
         const ctxText = ctx.map(d => `# ${d.title}\n${d.content || ''}`).join("\n\n---\n\n");
 
-        // If no API key, stream a mock response so UI still looks alive
         if (!OPENAI_API_KEY) {
           const mock = `🤖 (mock) I understood: "${message}".\nThis is a demo stream.\n\nDone.`;
-          for (const ch of mock) {
-            write(ch);
-            await new Promise(r => setTimeout(r, 8));
-          }
+          for (const ch of mock) { write(ch); await new Promise(r => setTimeout(r, 8)); }
           write(`\n${END_MARK}` + JSON.stringify({ proposed_action: null, contextDocs: ctx.map(d => ({ id: d.id, title: d.title })) }));
-          controller.close();
-          return;
+          controller.close(); return;
         }
 
         const client = new OpenAI({ apiKey: OPENAI_API_KEY });
-
         const systemPrompt = `You are an AI IT Helpdesk assistant for corporate users.
 - Answer ANY IT question clearly and concisely, using markdown lists where helpful.
 - Prefer step-by-step diagnostics before escalation.
@@ -72,7 +53,6 @@ OR
 Do NOT include any other fenced JSON.`;
 
         let full = "";
-
         const resp = await client.chat.completions.create({
           model: "gpt-4o-mini",
           temperature: 0.2,
@@ -86,10 +66,7 @@ Do NOT include any other fenced JSON.`;
 
         for await (const part of resp) {
           const delta = part.choices?.[0]?.delta?.content || "";
-          if (delta) {
-            full += delta;
-            write(delta);
-          }
+          if (delta) { full += delta; write(delta); }
         }
 
         const proposed_action = extractActionFrom(full);
