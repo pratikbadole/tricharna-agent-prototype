@@ -3,7 +3,7 @@
   "private": true,
   "dependencies": {
     "jsonwebtoken": "^9.0.2",
-    "node-fetch": "^3.3.2",
+    "node-fetch": "^2.6.7",
     "openai": "^4.57.0",
     "uuid": "^9.0.1"
   }
