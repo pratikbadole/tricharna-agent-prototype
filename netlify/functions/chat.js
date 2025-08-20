@@ -1,4 +1,15 @@
-const { json, KB, classifyIntent, chatLLM } = require("./_shared/common.js");
+const { json, retrieveContext, chatLLM, classifyIntent } = require("./_shared/common.js");
+
+function extractProposedAction(answer) {
+  // 1) JSON in fenced block
+  const fence = answer.match(/```[\s\S]*?```/);
+  if (fence) {
+    try { return JSON.parse(fence[0].replace(/```/g, '').trim()); } catch {}
+  }
+  // 2) Raw JSON only
+  try { return JSON.parse(answer.trim()); } catch {}
+  return null;
+}
 
 exports.handler = async function(event) {
   if (event.httpMethod !== "POST") return json({ error: "Method not allowed" }, 405);
@@ -6,14 +17,16 @@ exports.handler = async function(event) {
   if (!message) return json({ error: "message required" }, 400);
 
   const intent = classifyIntent(message);
-  const words = message.toLowerCase().split(/\W+/).filter(Boolean);
-  const ctx = KB.filter(doc => words.some(w => doc.content.toLowerCase().includes(w))).slice(0, 2);
-
+  const ctx = await retrieveContext(message, 3);
   const answer = await chatLLM({ message, intent, context: ctx });
 
-  let proposed_action = null;
-  const m = answer.match(/```\\s*\\{[\\s\\S]*?\\}\\s*```/);
-  if (m) { try { proposed_action = JSON.parse(m[0].replace(/```/g, "").trim()); } catch {} }
+  const proposed_action = extractProposedAction(answer);
 
-  return json({ ok: true, intent, contextDocs: ctx.map(d => ({ id: d.id, title: d.title })), answer, proposed_action });
+  return json({
+    ok: true,
+    intent,
+    contextDocs: ctx.map(d => ({ id: d.id, title: d.title })),
+    answer,
+    proposed_action
+  });
 };
