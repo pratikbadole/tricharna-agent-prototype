@@ -35,3 +35,8 @@
   from = "/api/weather"
   to   = "/.netlify/functions/weather"
   status = 200
+
+[[redirects]]
+  from = "/api/chat/stream"
+  to   = "/.netlify/functions/chat_stream"
+  status = 200

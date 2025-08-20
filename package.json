@@ -2,6 +2,7 @@
   "name": "tricharna-agent-prototype",
   "private": true,
   "dependencies": {
+    "@netlify/functions": "^2.0.0",
     "jsonwebtoken": "^9.0.2",
     "node-fetch": "^2.6.7",
     "openai": "^4.57.0",
