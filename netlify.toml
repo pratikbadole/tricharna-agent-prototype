@@ -40,3 +40,8 @@
   from = "/api/chat/stream"
   to   = "/.netlify/functions/chat_stream"
   status = 200
+
+# Edge function route for streaming chat
+[[edge_functions]]
+path = "/api/chat/stream"
+function = "chat-stream"
