@@ -1,7 +1,8 @@
 import { KNOWLEDGE, searchKnowledge } from './knowledge.js';
 
 const AGENT_CONFIG = {
-  apiBase: null
+  // use same-origin Netlify Functions (no CORS headaches)
+  apiBase: "/api"
 };
 
 const state = {
@@ -38,7 +39,7 @@ function initLogin(){
       initTickets();
       initKnowledge();
       initWeatherPanel();
-      addAssistant("Welcome! I'm your IT Support Agent. Ask about tickets, KB, or weather.");
+      addAssistant("Welcome! I'm your IT Support Agent. Ask about your IT issues—Wi-Fi, VPN, Outlook, printers, onboarding—and I’ll help. I can also create a ticket if needed.");
     } else {
       alert('Invalid credentials (use john@tricharna.com / demo123)');
     }
@@ -112,43 +113,86 @@ async function getWeatherTool(city){
   } catch(e){ return { ok:false, error:e.message }; }
 }
 
+// ---- NEW: backend-connected respond() + action execution ----
 async function respond(text){
-  if(!AGENT_CONFIG.apiBase){
-    const t = text.toLowerCase();
-    if (t.includes('create') && t.includes('ticket')){
-      const ticket = createTicketTool({ title: text, category:'general', priority:'normal', description:text });
-      addAssistant(`Ticket created: ${ticket.id} — "${ticket.title}". You can view it in Tickets.`);
-      return;
-    }
-    if (t.includes('weather')){
-      const cityMatch = text.match(/in ([A-Za-z\s]+)$/i);
-      const city = cityMatch ? cityMatch[1].trim() : 'Berlin';
-      const w = await getWeatherTool(city);
-      if (w.ok){
-        $('#weatherOutput').textContent = `${w.place}\nTemp: ${w.temperatureC} °C\nWind: ${w.windKph} km/h`;
-        addAssistant(`Current weather for ${w.place}: ${w.temperatureC} °C, wind ${w.windKph} km/h.`);
+  // If apiBase is set, use live backend
+  if (AGENT_CONFIG.apiBase) {
+    try{
+      const res = await fetch(`${AGENT_CONFIG.apiBase}/chat`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: text,
+          email: state.user?.email || "guest@demo.com"
+        })
+      });
+      const data = await res.json();
+
+      if (data.answer) {
+        addAssistant(data.answer);
       } else {
-        addAssistant(`Couldn't fetch weather: ${w.error || 'unknown error'}.`);
+        addAssistant("I didn’t quite catch that. Can you rephrase?");
       }
+
+      if (data.proposed_action) {
+        // Ask user before executing any privileged action
+        const pa = data.proposed_action;
+        const confirmMsg = `The assistant suggests: ${pa.proposed_action}. Proceed?`;
+        const ok = window.confirm(confirmMsg);
+        if (ok) {
+          const execRes = await fetch(`${AGENT_CONFIG.apiBase}/execute`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ action: pa.proposed_action, params: pa.params || {} })
+          });
+          const execData = await execRes.json();
+          if (execData.ok) {
+            addAssistant(pa.proposed_action === 'create_ticket'
+              ? `✅ Ticket created: ${execData.ticket?.id || '(no id)'}`
+              : `✅ Action completed: ${pa.proposed_action}`);
+          } else {
+            addAssistant(`⚠️ Action failed: ${execData.error || 'Unknown error'}`);
+          }
+        } else {
+          addAssistant("Okay, I won't proceed with that action.");
+        }
+      }
+
       return;
+    } catch(e){
+      addAssistant("⚠️ Error contacting backend: " + e.message + ". Falling back to local tools.");
+      // fall through to local demo tools below
     }
-    if (t.includes('search') || t.includes('kb') || t.includes('knowledge')){
-      const q = text.replace(/^(search|kb|knowledge)/i,'').trim() || text;
-      const hits = kbSearchTool(q).slice(0,3);
-      if (!hits.length){ addAssistant("No KB results. Try different keywords."); return; }
-      const lines = hits.map(h => `• ${h.title} — ${h.category}`);
-      addAssistant("Top knowledge matches:\n"+lines.join("\n"));
-      return;
-    }
-    addAssistant("Got it. I can create tickets, search the knowledge base, or fetch weather. Try: “create a ticket to reset VPN”, “weather in Berlin”, or “search VPN drops”."); 
-    return;
   }
 
-  try{
-    addAssistant("(*Live AI endpoint not configured in this demo. Set AGENT_CONFIG.apiBase to your deployed backend.*)");
-  }catch(e){
-    addAssistant("Encountered an error reaching the AI endpoint: "+ e.message);
+  // --------- Local fallback demo logic (runs if backend fails) ----------
+  const t = text.toLowerCase();
+  if (t.includes('create') && t.includes('ticket')){
+    const ticket = createTicketTool({ title: text, category:'general', priority:'normal', description:text });
+    addAssistant(`Ticket created: ${ticket.id} — "${ticket.title}". You can view it in Tickets.`);
+    return;
   }
+  if (t.includes('weather')){
+    const cityMatch = text.match(/in ([A-Za-z\s]+)$/i);
+    const city = cityMatch ? cityMatch[1].trim() : 'Berlin';
+    const w = await getWeatherTool(city);
+    if (w.ok){
+      $('#weatherOutput').textContent = `${w.place}\nTemp: ${w.temperatureC} °C\nWind: ${w.windKph} km/h`;
+      addAssistant(`Current weather for ${w.place}: ${w.temperatureC} °C, wind ${w.windKph} km/h.`);
+    } else {
+      addAssistant(`Couldn't fetch weather: ${w.error || 'unknown error'}.`);
+    }
+    return;
+  }
+  if (t.includes('search') || t.includes('kb') || t.includes('knowledge')){
+    const q = text.replace(/^(search|kb|knowledge)/i,'').trim() || text;
+    const hits = kbSearchTool(q).slice(0,3);
+    if (!hits.length){ addAssistant("No KB results. Try different keywords."); return; }
+    const lines = hits.map(h => `• ${h.title} — ${h.category}`);
+    addAssistant("Top knowledge matches:\n"+lines.join("\n"));
+    return;
+  }
+  addAssistant("Got it. I can create tickets, search the knowledge base, or fetch weather. Try: “create a ticket to reset VPN”, “weather in Berlin”, or “search VPN drops”."); 
 }
 
 function initWeatherPanel(){
