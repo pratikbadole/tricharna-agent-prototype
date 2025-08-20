@@ -10,3 +10,28 @@
   from = "/api/health"
   to   = "/.netlify/functions/health"
   status = 200
+
+[[redirects]]
+  from = "/api/chat"
+  to   = "/.netlify/functions/chat"
+  status = 200
+
+[[redirects]]
+  from = "/api/execute"
+  to   = "/.netlify/functions/execute"
+  status = 200
+
+[[redirects]]
+  from = "/api/tickets"
+  to   = "/.netlify/functions/tickets"
+  status = 200
+
+[[redirects]]
+  from = "/api/knowledge"
+  to   = "/.netlify/functions/knowledge"
+  status = 200
+
+[[redirects]]
+  from = "/api/weather"
+  to   = "/.netlify/functions/weather"
+  status = 200
