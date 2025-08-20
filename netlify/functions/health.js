@@ -1,2 +1,5 @@
-import { json } from "./_shared/common.mjs";
-export async function handler() { return json({ ok: true }); }
+const { json } = require("./_shared/common.js");
+
+exports.handler = async function() {
+  return json({ ok: true });
+};
