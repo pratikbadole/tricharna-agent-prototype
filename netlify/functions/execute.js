@@ -1,33 +1,42 @@
-const { json, uuid } = require("./_shared/common.js");
+const { json } = require("./_shared/common.js");
+const supabase = require("./_shared/db.js");
 
-// In-memory demo store (keep simple for now)
-const TICKETS = [];
+exports.handler = async (event) => {
+  try {
+    if (event.httpMethod !== "POST") return json({ ok:false, error:"POST required" }, 405);
 
-exports.handler = async function(event) {
-  if (event.httpMethod !== "POST") return json({ error: "Method not allowed" }, 405);
-  const { action, params } = JSON.parse(event.body || "{}");
+    const body = JSON.parse(event.body || "{}");
+    const action = body.action;
+    const params = body.params || {};
 
-  if (action === "reset_password") {
-    const t = { id: uuid(), type: "reset_password", user_email: params?.user_email || null, status: "done", createdAt: new Date().toISOString() };
-    TICKETS.push(t);
-    return json({ ok: true, message: `Password reset link sent to ${params?.user_email || "user"}`, ticket: t });
+    if (action === "create_ticket") {
+      const { title = "Support request", details = "", user_email = "", impact = "unknown", urgency = "medium", type = "generic" } = params;
+      const { data, error } = await supabase
+        .from("tickets")
+        .insert([{ title, details, user_email, impact, urgency, status: "open", type }])
+        .select()
+        .limit(1)
+        .single();
+      if (error) return json({ ok:false, error: error.message }, 500);
+      return json({ ok:true, ticket: data });
+    }
+
+    if (action === "update_ticket") {
+      const { id, patch = {} } = params;
+      if (!id) return json({ ok:false, error:"id required" }, 400);
+      const { data, error } = await supabase
+        .from("tickets")
+        .update(patch)
+        .eq("id", id)
+        .select()
+        .limit(1)
+        .single();
+      if (error) return json({ ok:false, error: error.message }, 500);
+      return json({ ok:true, ticket: data });
+    }
+
+    return json({ ok:false, error:"Unknown action" }, 400);
+  } catch (e) {
+    return json({ ok:false, error: e.message }, 500);
   }
-
-  if (action === "create_ticket") {
-    const t = {
-      id: uuid(),
-      type: "generic",
-      title: params?.title || "New ticket",
-      details: params?.details || "",
-      impact: params?.impact || "unknown",
-      urgency: params?.urgency || "medium",
-      user_email: params?.user_email || null,
-      status: "open",
-      createdAt: new Date().toISOString()
-    };
-    TICKETS.push(t);
-    return json({ ok: true, message: "Ticket created", ticket: t });
-  }
-
-  return json({ error: "Unsupported action" }, 400);
 };

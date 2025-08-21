@@ -1,14 +1,15 @@
-const { json, Tickets, uuid } = require("./_shared/common.js");
+const { json } = require("./_shared/common.js");
+const supabase = require("./_shared/db.js");
 
-exports.handler = async function(event) {
-  if (event.httpMethod === "GET") {
-    return json(Tickets);
+exports.handler = async (event) => {
+  try {
+    const email = event.queryStringParameters?.email || null;
+    let query = supabase.from("tickets").select("*").order("created_at", { ascending: false });
+    if (email) query = query.eq("user_email", email);
+    const { data, error } = await query;
+    if (error) return json({ ok:false, error: error.message }, 500);
+    return json({ ok:true, tickets: data });
+  } catch (e) {
+    return json({ ok:false, error: e.message }, 500);
   }
-  if (event.httpMethod === "POST") {
-    const { summary, user_email } = JSON.parse(event.body || "{}");
-    const t = { id: uuid(), type: "generic", summary, user_email, createdAt: new Date().toISOString(), status: "open" };
-    Tickets.push(t);
-    return json({ ok: true, ticket: t });
-  }
-  return json({ error: "Method not allowed" }, 405);
 };
