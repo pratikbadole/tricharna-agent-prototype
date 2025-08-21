@@ -96,5 +96,13 @@
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script type="module">
+  import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+  window.SUPABASE_URL = "https://sjwaezsuwcflhncyofbr.supabase.co";
+  window.SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNqd2FlenN1d2NmbGhuY3lvZmJyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU3NzUyNDAsImV4cCI6MjA3MTM1MTI0MH0.6CdlMtX9uFh_sh86mIF8ZDl0J_vlOnM9z29sNPUovOI";
+  window.supabase = createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY, {
+    auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
+  });
+</script>
 </body>
 </html>
