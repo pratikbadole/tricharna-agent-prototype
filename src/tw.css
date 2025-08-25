@@ -20,3 +20,55 @@ body.login { background:#0D0D0D; }
 /* Card emphasis */
 .glass{ background:var(--glass); border:1px solid var(--glass-border); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-radius:16px; }
 .shadow-glow{ box-shadow:0 0 24px rgba(255,107,0,.35); }
+
+/* ---- StrataMind Split Auth Theme ---- */
+:root{
+  --bg-deep:#0b0b0f;
+  --glass: rgba(255,255,255,.06);
+  --glass-border: rgba(255,255,255,.18);
+}
+body{ background:var(--bg-deep); }
+body.auth { background:var(--bg-deep); }
+
+/* Left brand pane: subtle gradient + grid */
+.brand-pane{
+  position:relative;
+  background:
+    radial-gradient(800px 800px at 30% 40%, rgba(255,106,0,.14), transparent 60%),
+    radial-gradient(600px 600px at 70% 70%, rgba(255,106,0,.08), transparent 60%);
+}
+.brand-pane:before{
+  content:"";
+  position:absolute; inset:0;
+  opacity:.06; pointer-events:none;
+  background:
+    linear-gradient(to right, #fff 1px, transparent 1px),
+    linear-gradient(to bottom, #fff 1px, transparent 1px);
+  background-size:46px 46px;
+}
+
+/* Glass auth card */
+.glass{ background:var(--glass); border:1px solid var(--glass-border);
+  backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-radius:16px; }
+.shadow-glow{ box-shadow:0 0 28px rgba(255,106,0,.35); }
+.input{
+  @apply w-full px-3 py-2 rounded-lg bg-[#151515] border border-text1 text-white
+         placeholder:text-text1/70 focus:outline-none focus:ring-2 focus:ring-brand-500;
+}
+
+/* Buttons */
+.btn-primary{
+  background:linear-gradient(180deg,#ff7a1a 0%,#ff6a00 100%);
+  color:#fff; border-radius:.5rem; padding:.75rem 1rem; width:100%;
+  transition:transform .15s ease, box-shadow .2s ease, filter .2s ease;
+  box-shadow:0 0 20px rgba(255,106,0,.28);
+}
+.btn-primary:hover{ transform:translateY(-1px); box-shadow:0 0 30px rgba(255,106,0,.4); filter:saturate(1.05); }
+
+/* Hide global nav on auth */
+body.auth header, body.auth nav, body.auth .topbar, body.auth .tabs { display:none !important; }
+
+/* Logo watermark (kept for other pages) */
+.logo-watermark{ position:fixed; right:18px; bottom:18px; width:64px; height:64px; opacity:.22;
+  filter:drop-shadow(0 0 18px rgba(255,107,0,.35)); pointer-events:none; z-index:5; animation:pulse 4s ease-in-out infinite; }
+@keyframes pulse{0%,100%{opacity:.18}50%{opacity:.28}}

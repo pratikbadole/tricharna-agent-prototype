@@ -12,15 +12,109 @@
 </head>
 <body class="antialiased bg-bg0 flex items-center justify-center min-h-screen text-text0">
 
+<div id="auth-shell" class="min-h-screen md:grid md:grid-cols-2">
+  <!-- LEFT: Brand panel -->
+  <section class="brand-pane hidden md:flex flex-col justify-between p-8">
+    <div class="flex items-center gap-3">
+      <img src="brand/stratamind-monogram.svg" alt="StrataMind" class="w-9 h-9 drop-shadow" />
+      <div class="text-white/90 font-semibold tracking-wide">StrataMind</div>
+    </div>
+
+    <div class="px-6">
+      <h1 class="font-display text-4xl md:text-5xl text-white leading-tight">
+        Discover the transformative power of
+        <span class="block text-brand-400">AI Helpdesk</span>
+      </h1>
+      <p class="text-text1 mt-4 max-w-md">
+        AI-powered IT support for the future. Faster resolutions, smarter routing, delightful UX.
+      </p>
+    </div>
+
+    <div></div>
+  </section>
+
+  <!-- RIGHT: Auth panel (glass) -->
+  <section class="flex items-center justify-center p-6">
+    <div class="w-full max-w-md">
+      <div class="mb-6 text-center md:hidden">
+        <img src="brand/stratamind-monogram.svg" alt="StrataMind" class="mx-auto w-10 h-10 mb-2" />
+        <div class="text-white/90 font-semibold">StrataMind</div>
+      </div>
+
+      <div class="glass shadow-glow p-6 md:p-8 space-y-4">
+        <div class="text-center">
+          <h2 class="font-display text-3xl text-white">Login to <span class="text-brand-400">StrataMind</span></h2>
+        </div>
+
+        <!-- LOGIN FORM -->
+        <form id="loginForm" class="space-y-3" autocomplete="on">
+          <label class="block">
+            <span class="sr-only">Email</span>
+            <input id="email" type="email" placeholder="you@company.com" class="input" required>
+          </label>
+
+          <div class="relative">
+            <input id="password" type="password" placeholder="Password" class="input pr-10" required>
+            <button type="button" id="togglePw" aria-label="Show password"
+              class="absolute inset-y-0 right-0 px-3 text-text1 hover:text-white/90">👁️</button>
+          </div>
+
+          <button type="submit" class="btn-primary">Login</button>
+
+          <div class="flex justify-between text-xs text-text1">
+            <a href="#" class="hover:text-white/80">Forgot password?</a>
+            <a href="#" id="goRegister" class="hover:text-white/80">Create account</a>
+          </div>
+
+          <p class="text-[11px] text-center text-text1 mt-2">Demo — <span class="text-white">john@tricharna.com</span> / <span class="text-white">demo123</span></p>
+        </form>
+
+        <!-- REGISTER FORM (hidden by default) -->
+        <form id="registerForm" class="space-y-3 hidden" autocomplete="on">
+          <input id="regName" type="text" placeholder="Full name" class="input" required>
+          <input id="regEmail" type="email" placeholder="you@company.com" class="input" required>
+          <input id="regPw" type="password" placeholder="Password" class="input" required>
+          <input id="regPw2" type="password" placeholder="Confirm password" class="input" required>
+          <button type="button" id="goLogin" class="text-xs text-text1 hover:text-white/80">Already have an account? Login</button>
+          <button type="submit" class="btn-primary mt-1">Create Account</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+  // Mark body as auth to hide global nav
+  document.body.classList.add('auth');
+
+  // Password show/hide
+  const pw = document.getElementById('password');
+  const toggle = document.getElementById('togglePw');
+  if (toggle && pw) {
+    toggle.addEventListener('click', () => {
+      pw.type = pw.type === 'password' ? 'text' : 'password';
+    });
+  }
+
+  // Login <-> Register toggle (UI only; your backend can hook later)
+  const lf = document.getElementById('loginForm');
+  const rf = document.getElementById('registerForm');
+  const toReg = document.getElementById('goRegister');
+  const toLog = document.getElementById('goLogin');
+  if (toReg && toLog && lf && rf) {
+    toReg.addEventListener('click', (e)=>{ e.preventDefault(); lf.classList.add('hidden'); rf.classList.remove('hidden'); });
+    toLog.addEventListener('click', (e)=>{ e.preventDefault(); rf.classList.add('hidden'); lf.classList.remove('hidden'); });
+  }
+</script>
+
+
   <!-- Login Screen -->
   <section id="loginScreen" class="screen screen--login">
     <div class="login-card">
 
       
 
-<div id="auth-hero" class="min-h-screen grid place-items-center relative overflow-hidden">
-  <!-- subtle radial + grid background -->
-  <div class="absolute inset-0 bg-[radial-gradient(600px_circle_at_center,rgba(255,107,0,.10),transparent_60%)]"></div>
+
   <div class="absolute inset-0 pointer-events-none opacity-[.04] bg-[linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] bg-[size:44px_44px]"></div>
 
   <div class="relative w-full max-w-xl px-6">
@@ -32,24 +126,7 @@
       <p class="text-text1 text-sm mt-2">Sign in to StrataMind to open, track, and resolve IT issues faster.</p>
     </div>
 
-    <form id="loginForm" class="glass p-6 md:p-8 rounded-2xl shadow-glow space-y-4">
-      <label class="block">
-        <span class="sr-only">Email</span>
-        <input id="email" type="email" placeholder="you@company.com"
-          class="w-full px-3 py-2 rounded-lg bg-bg1 border border-text1 text-white placeholder:text-text1/70 focus:outline-none focus:ring-2 focus:ring-brand-500" required>
-      </label>
-
-      <label class="block">
-        <span class="sr-only">Password</span>
-        <input id="password" type="password" placeholder="Password"
-          class="w-full px-3 py-2 rounded-lg bg-bg1 border border-text1 text-white placeholder:text-text1/70 focus:outline-none focus:ring-2 focus:ring-brand-500" required>
-      </label>
-
-      <button type="submit"
-        class="w-full py-3 rounded-lg bg-brand-500 hover:bg-brand-400 text-white transition shadow-glow">Login</button>
-
-      <p class="text-xs text-text1 mt-2 text-center">Demo — <span class="text-white">john@tricharna.com</span> / <span class="text-white">demo123</span></p>
-    </form>
+    
   </div>
 
   <!-- glowing watermark -->
