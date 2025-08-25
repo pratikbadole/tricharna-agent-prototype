@@ -127,3 +127,23 @@ body.auth .main-shell, body.auth .global-nav, body.auth .toolbar {
 .btn-primary { transition: transform .15s ease; }
 .btn-primary:hover { transform: translateY(-1px); }
 
+
+/* === Stronger hero background & vignette === */
+@layer utilities {
+  .hero-bg::before {
+    /* increase glow intensity & radius */
+    background:
+      radial-gradient(900px 700px at 22% 38%, rgba(255,107,0,.24), transparent 62%),
+      radial-gradient(700px 520px at 18% 72%, rgba(255,179,71,.16), transparent 62%),
+      linear-gradient(#0B0B0F,#0B0B0F);
+  }
+  .hero-bg { position:relative; }
+  .hero-bg::after {
+    /* keep grid, add subtle vignette */
+    background:
+      linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px) 0 0 / 40px 40px,
+      linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px) 0 0 / 40px 40px;
+    box-shadow: inset 0 0 220px rgba(0,0,0,.55);
+  }
+  .logo-glow { filter: drop-shadow(0 0 10px rgba(255,107,0,.45)); }
+}
