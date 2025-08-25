@@ -72,3 +72,23 @@ body.auth header, body.auth nav, body.auth .topbar, body.auth .tabs { display:no
 .logo-watermark{ position:fixed; right:18px; bottom:18px; width:64px; height:64px; opacity:.22;
   filter:drop-shadow(0 0 18px rgba(255,107,0,.35)); pointer-events:none; z-index:5; animation:pulse 4s ease-in-out infinite; }
 @keyframes pulse{0%,100%{opacity:.18}50%{opacity:.28}}
+
+/* --- auth hard-hider: nuke any old app chrome on login/register --- */
+body.auth header, body.auth nav, body.auth .topbar, body.auth .tabs,
+body.auth .app-header, body.auth .app-nav, body.auth .app-shell,
+body.auth .main-shell, body.auth .global-nav, body.auth .toolbar {
+  display:none !important;
+}
+
+/* ensure split takes full viewport and centers the glass card */
+#auth-shell{ min-height:100vh; }
+#auth-shell .auth-pane { min-height:100vh; }
+
+/* keep the right pane content centered */
+.auth-right { display:flex; align-items:center; justify-content:center; padding:1.5rem; }
+
+/* tweak grid at md+: true halves */
+@media (min-width:768px){
+  #auth-shell { display:grid; grid-template-columns: 1fr 1fr; }
+}
+

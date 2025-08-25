@@ -10,17 +10,17 @@
 <link rel="stylesheet" href="assets/tw.css">
 <link href="https://fonts.bunny.net/css?family=inter:400,500,600|poppins:700" rel="stylesheet">
 </head>
-<body class="antialiased bg-bg0 flex items-center justify-center min-h-screen text-text0">
 
-<div id="auth-shell" class="min-h-screen md:grid md:grid-cols-2">
+<body class="auth">
+<div id="auth-shell">
   <!-- LEFT: Brand panel -->
-  <section class="brand-pane hidden md:flex flex-col justify-between p-8">
+  <section class="auth-pane brand-pane hidden md:flex flex-col justify-between p-10">
     <div class="flex items-center gap-3">
       <img src="brand/stratamind-monogram.svg" alt="StrataMind" class="w-9 h-9 drop-shadow" />
       <div class="text-white/90 font-semibold tracking-wide">StrataMind</div>
     </div>
 
-    <div class="px-6">
+    <div class="px-2">
       <h1 class="font-display text-4xl md:text-5xl text-white leading-tight">
         Discover the transformative power of
         <span class="block text-brand-400">AI Helpdesk</span>
@@ -33,49 +33,42 @@
     <div></div>
   </section>
 
-  <!-- RIGHT: Auth panel (glass) -->
-  <section class="flex items-center justify-center p-6">
+  <!-- RIGHT: Auth panel -->
+  <section class="auth-pane auth-right">
     <div class="w-full max-w-md">
-      <div class="mb-6 text-center md:hidden">
-        <img src="brand/stratamind-monogram.svg" alt="StrataMind" class="mx-auto w-10 h-10 mb-2" />
-        <div class="text-white/90 font-semibold">StrataMind</div>
-      </div>
-
       <div class="glass shadow-glow p-6 md:p-8 space-y-4">
         <div class="text-center">
-          <h2 class="font-display text-3xl text-white">Login to <span class="text-brand-400">StrataMind</span></h2>
+          <h2 class="font-display text-3xl text-white">
+            Login to <span class="text-brand-400">StrataMind</span>
+          </h2>
+          <p class="text-xs text-text1 mt-2">Sign in to open, track, and resolve IT issues faster.</p>
         </div>
 
-        <!-- LOGIN FORM -->
         <form id="loginForm" class="space-y-3" autocomplete="on">
-          <label class="block">
-            <span class="sr-only">Email</span>
-            <input id="email" type="email" placeholder="you@company.com" class="input" required>
-          </label>
-
+          <input id="email" type="email" placeholder="you@company.com" class="input" required>
           <div class="relative">
             <input id="password" type="password" placeholder="Password" class="input pr-10" required>
             <button type="button" id="togglePw" aria-label="Show password"
               class="absolute inset-y-0 right-0 px-3 text-text1 hover:text-white/90">👁️</button>
           </div>
-
           <button type="submit" class="btn-primary">Login</button>
-
           <div class="flex justify-between text-xs text-text1">
             <a href="#" class="hover:text-white/80">Forgot password?</a>
             <a href="#" id="goRegister" class="hover:text-white/80">Create account</a>
           </div>
-
-          <p class="text-[11px] text-center text-text1 mt-2">Demo — <span class="text-white">john@tricharna.com</span> / <span class="text-white">demo123</span></p>
+          <p class="text-[11px] text-center text-text1 mt-2">
+            Demo — <span class="text-white">john@tricharna.com</span> / <span class="text-white">demo123</span>
+          </p>
         </form>
 
-        <!-- REGISTER FORM (hidden by default) -->
         <form id="registerForm" class="space-y-3 hidden" autocomplete="on">
-          <input id="regName" type="text" placeholder="Full name" class="input" required>
-          <input id="regEmail" type="email" placeholder="you@company.com" class="input" required>
-          <input id="regPw" type="password" placeholder="Password" class="input" required>
-          <input id="regPw2" type="password" placeholder="Confirm password" class="input" required>
-          <button type="button" id="goLogin" class="text-xs text-text1 hover:text-white/80">Already have an account? Login</button>
+          <input id="regName"  type="text"     placeholder="Full name"        class="input" required>
+          <input id="regEmail" type="email"    placeholder="you@company.com"  class="input" required>
+          <input id="regPw"    type="password" placeholder="Password"         class="input" required>
+          <input id="regPw2"   type="password" placeholder="Confirm password" class="input" required>
+          <button type="button" id="goLogin" class="text-xs text-text1 hover:text-white/80">
+            Already have an account? Login
+          </button>
           <button type="submit" class="btn-primary mt-1">Create Account</button>
         </form>
       </div>
@@ -84,19 +77,12 @@
 </div>
 
 <script>
-  // Mark body as auth to hide global nav
-  document.body.classList.add('auth');
-
-  // Password show/hide
+  // password show/hide
   const pw = document.getElementById('password');
   const toggle = document.getElementById('togglePw');
-  if (toggle && pw) {
-    toggle.addEventListener('click', () => {
-      pw.type = pw.type === 'password' ? 'text' : 'password';
-    });
-  }
+  if (toggle && pw) toggle.addEventListener('click', () => { pw.type = (pw.type === 'password' ? 'text' : 'password'); });
 
-  // Login <-> Register toggle (UI only; your backend can hook later)
+  // login <-> register
   const lf = document.getElementById('loginForm');
   const rf = document.getElementById('registerForm');
   const toReg = document.getElementById('goRegister');
@@ -106,110 +92,6 @@
     toLog.addEventListener('click', (e)=>{ e.preventDefault(); rf.classList.add('hidden'); lf.classList.remove('hidden'); });
   }
 </script>
-
-
-  <!-- Login Screen -->
-  <section id="loginScreen" class="screen screen--login">
-    <div class="login-card">
-
-      
-
-
-  <div class="absolute inset-0 pointer-events-none opacity-[.04] bg-[linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] bg-[size:44px_44px]"></div>
-
-  <div class="relative w-full max-w-xl px-6">
-    <div class="mb-6 text-center">
-      <h1 class="font-display text-3xl md:text-4xl text-white">
-        <span class="block">Access Premium</span>
-        <span class="block text-brand-400">Support</span>
-      </h1>
-      <p class="text-text1 text-sm mt-2">Sign in to StrataMind to open, track, and resolve IT issues faster.</p>
-    </div>
-
-    
-  </div>
-
-  <!-- glowing watermark -->
-  <img src="brand/stratamind-monogram.svg" alt="StrataMind" class="logo-watermark">
-</div>
-<script>
-  // Add a body class on the login screen and hide legacy header/nav bits
-  if (document.getElementById('loginForm')) {
-    document.body.classList.add('login');
-  }
-</script>
-
-
-    </div>
-  </section>
-
-  <!-- Main App -->
-  <section id="mainApp" class="screen screen--app" style="display:none">
-
-    <main class="app-main">
-      <!-- Chat View -->
-      <section id="chatView" class="view" data-view="chat" style="display:block">
-        <div class="chat-layout">
-          <div class="chat-pane">
-            <div id="chatMessages" class="glass" class="glass" class="chat-messages" aria-live="polite"></div>
-            <form id="chatForm" class="chat-form">
-              <textarea id="chatInput" rows="2" placeholder="Ask me anything about tickets, knowledge, or weather…"></textarea>
-              <button type="submit" class="btn btn--primary">Send</button>
-            </form>
-          </div>
-          <aside class="side-pane">
-            <div class="card">
-              <h3>Weather</h3>
-              <div id="weatherPanel" class="weather-panel">
-                <label class="form-label" for="weatherCity">City</label>
-                <input id="weatherCity" placeholder="Berlin" />
-                <button id="weatherFetchBtn" class="btn btn--ghost">Get Weather</button>
-                <pre id="weatherOutput" class="weather-output">—</pre>
-              </div>
-            </div>
-          </aside>
-        </div>
-      </section>
-
-      <!-- Tickets View -->
-      <section id="ticketsView" class="view" data-view="tickets" style="display:none">
-        <div class="toolbar">
-          <button id="createTicketBtn" class="btn btn--primary">+ Create Ticket</button>
-        </div>
-        <div id="ticketsContainer" class="tickets"></div>
-      </section>
-
-      <!-- Knowledge View -->
-      <section id="knowledgeView" class="view" data-view="knowledge" style="display:none">
-        <div class="toolbar">
-          <input id="knowledgeSearch" placeholder="Search knowledge…" />
-          <div class="filters">
-            <button class="filter-btn" data-cat="all">All</button>
-            <button class="filter-btn" data-cat="email">Email</button>
-            <button class="filter-btn" data-cat="vpn">VPN</button>
-            <button class="filter-btn" data-cat="hardware">Hardware</button>
-          </div>
-        </div>
-        <div id="knowledgeContainer" class="knowledge"></div>
-      </section>
-    </main>
-  </section>
-
-  <!-- App code (ES module) -->
-  <script type="module" src="./app.js"></script>
-  <script type="module" src="./knowledge.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-<script type="module">
-  import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-  window.SUPABASE_URL = "https://sjwaezsuwcflhncyofbr.supabase.co";
-  window.SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNqd2FlenN1d2NmbGhuY3lvZmJyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU3NzUyNDAsImV4cCI6MjA3MTM1MTI0MH0.6CdlMtX9uFh_sh86mIF8ZDl0J_vlOnM9z29sNPUovOI";
-  window.supabase = createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY, {
-    auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
-  });
-</script>
-<img src="brand/stratamind-monogram.svg" alt="StrataMind" class="brand-logo">
-<img src="brand/stratamind-monogram.svg" alt="StrataMind" class="logo-watermark">
 </body>
+
 </html>
