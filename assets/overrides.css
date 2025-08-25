@@ -1,0 +1,33 @@
+/* Subtle grid + orange bloom on deep black */
+.login-grid {
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 600px at 20% 35%, rgba(255,107,0,.10) 0%, rgba(0,0,0,0) 60%),
+    radial-gradient(900px 500px at 85% 75%, rgba(255,107,0,.06) 0%, rgba(0,0,0,0) 55%),
+    #0b0b0f;
+  position: relative;
+}
+.login-grid::before{
+  content:"";
+  position:absolute; inset:0;
+  background:
+    linear-gradient(transparent 31px, rgba(255,255,255,.05) 32px),
+    linear-gradient(90deg, transparent 31px, rgba(255,255,255,.05) 32px);
+  background-size: 32px 32px;
+  pointer-events:none;
+}
+
+.glass-shell{
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+  box-shadow: 0 0 36px rgba(255,107,0,.22);
+}
+.brand-chip{
+  display:flex; align-items:center; gap:.6rem;
+  padding:.5rem .8rem; border-radius:999px;
+  background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12);
+}
+.eye-btn{ cursor:pointer; user-select:none; }
