@@ -17,26 +17,51 @@
     <div class="login-card">
 
       
-<form id="loginForm" class="glass w-full max-w-md p-6 md:p-8 rounded-2xl shadow-glow space-y-4">
-  <h1 class="text-3xl md:text-4xl font-display text-brand-400 leading-relaxed">Access Premium Support</h1>
 
-  <label class="block">
-    <span class="sr-only">Email</span>
-    <input id="email" type="email" placeholder="you@company.com"
-      class="w-full px-3 py-2 rounded-lg bg-bg1 border border-text1 text-white placeholder:text-text1/70 focus:outline-none focus:ring-2 focus:ring-brand-500" required>
-  </label>
+<div id="auth-hero" class="min-h-screen grid place-items-center relative overflow-hidden">
+  <!-- subtle radial + grid background -->
+  <div class="absolute inset-0 bg-[radial-gradient(600px_circle_at_center,rgba(255,107,0,.10),transparent_60%)]"></div>
+  <div class="absolute inset-0 pointer-events-none opacity-[.04] bg-[linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] bg-[size:44px_44px]"></div>
 
-  <label class="block">
-    <span class="sr-only">Password</span>
-    <input id="password" type="password" placeholder="Password"
-      class="w-full px-3 py-2 rounded-lg bg-bg1 border border-text1 text-white placeholder:text-text1/70 focus:outline-none focus:ring-2 focus:ring-brand-500" required>
-  </label>
+  <div class="relative w-full max-w-xl px-6">
+    <div class="mb-6 text-center">
+      <h1 class="font-display text-3xl md:text-4xl text-white">
+        <span class="block">Access Premium</span>
+        <span class="block text-brand-400">Support</span>
+      </h1>
+      <p class="text-text1 text-sm mt-2">Sign in to StrataMind to open, track, and resolve IT issues faster.</p>
+    </div>
 
-  <button type="submit"
-    class="w-full py-3 rounded-lg bg-brand-500 hover:bg-brand-400 text-white transition shadow-glow">Login</button>
+    <form id="loginForm" class="glass p-6 md:p-8 rounded-2xl shadow-glow space-y-4">
+      <label class="block">
+        <span class="sr-only">Email</span>
+        <input id="email" type="email" placeholder="you@company.com"
+          class="w-full px-3 py-2 rounded-lg bg-bg1 border border-text1 text-white placeholder:text-text1/70 focus:outline-none focus:ring-2 focus:ring-brand-500" required>
+      </label>
 
-  <p class="text-sm text-text1 mt-2">Demo creds — <span class="text-white">Email: john@tricharna.com</span> &nbsp; Password: <span class="text-white">demo123</span></p>
-</form>
+      <label class="block">
+        <span class="sr-only">Password</span>
+        <input id="password" type="password" placeholder="Password"
+          class="w-full px-3 py-2 rounded-lg bg-bg1 border border-text1 text-white placeholder:text-text1/70 focus:outline-none focus:ring-2 focus:ring-brand-500" required>
+      </label>
+
+      <button type="submit"
+        class="w-full py-3 rounded-lg bg-brand-500 hover:bg-brand-400 text-white transition shadow-glow">Login</button>
+
+      <p class="text-xs text-text1 mt-2 text-center">Demo — <span class="text-white">john@tricharna.com</span> / <span class="text-white">demo123</span></p>
+    </form>
+  </div>
+
+  <!-- glowing watermark -->
+  <img src="brand/stratamind-monogram.svg" alt="StrataMind" class="logo-watermark">
+</div>
+<script>
+  // Add a body class on the login screen and hide legacy header/nav bits
+  if (document.getElementById('loginForm')) {
+    document.body.classList.add('login');
+  }
+</script>
+
 
     </div>
   </section>
