@@ -31,3 +31,56 @@
   background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12);
 }
 .eye-btn{ cursor:pointer; user-select:none; }
+
+/* ---- TUNE: stronger vignette + clearer grid + deeper glass ---- */
+.login-grid{
+  /* stronger dual blooms + soft vignette */
+  background:
+    radial-gradient(1300px 700px at 20% 40%, rgba(255,107,0,.18) 0%, rgba(255,107,0,.05) 35%, rgba(0,0,0,0) 60%),
+    radial-gradient(900px 520px at 82% 72%, rgba(255,107,0,.10) 0%, rgba(0,0,0,0) 55%),
+    radial-gradient(1400px 900px at 50% 100%, rgba(0,0,0,.35) 0%, rgba(0,0,0,.0) 60%),
+    #0b0b0f;
+}
+
+/* grid lines: a hair brighter and slightly larger cells */
+.login-grid::before{
+  background:
+    linear-gradient(transparent 39px, rgba(255,255,255,.065) 40px),
+    linear-gradient(90deg, transparent 39px, rgba(255,255,255,.065) 40px);
+  background-size: 40px 40px;
+}
+
+/* glass: more frost + edge definition + inner glow lip */
+.glass-shell{
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.16);
+  box-shadow:
+    0 0 42px rgba(255,107,0,.28),         /* orange bloom */
+    inset 0 1px 0 rgba(255,255,255,.12);  /* soft inner lip */
+}
+
+/* inputs: darker well + clearer focus */
+.glass-shell input{
+  background: rgba(20,20,22,.85);
+  border-color: rgba(255,255,255,.18);
+}
+.glass-shell input:focus{
+  border-color: rgba(255,107,0,.55);
+  box-shadow: 0 0 0 3px rgba(255,107,0,.25);
+}
+
+/* CTA button: stronger gradient + lift on hover */
+.glass-shell button{
+  background: linear-gradient(180deg,#FF8A26 0%,#FF6B00 100%);
+  box-shadow: 0 8px 24px rgba(255,107,0,.28);
+}
+.glass-shell button:hover{
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+}
+
+/* brand chip polish */
+.brand-chip{
+  box-shadow: 0 6px 18px rgba(0,0,0,.35);
+  border-radius: 12px;
+}
