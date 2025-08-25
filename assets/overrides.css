@@ -98,3 +98,15 @@
   box-shadow: 0 6px 18px rgba(0,0,0,.35);
   border-radius: 12px;
 }
+
+/* --- StrataMind: login tweaks (safe, additive) --- */
+@media (min-width: 768px){
+  /* wider form but still balanced with hero */
+  #loginForm { max-width: 520px; margin-left:auto; margin-right:auto; }
+}
+
+/* ensure the split grid vertically centers both columns */
+.login-hero-center { min-height: calc(100vh - 120px); display:grid; align-items:center; }
+
+/* soften and even out the glow behind the login card */
+.login-card-glow { box-shadow: 0 0 36px rgba(255,107,0,.22); }
