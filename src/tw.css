@@ -92,3 +92,38 @@ body.auth .main-shell, body.auth .global-nav, body.auth .toolbar {
   #auth-shell { display:grid; grid-template-columns: 1fr 1fr; }
 }
 
+
+/* === StrataMind hero background (dark + grid + orange glow) === */
+@layer utilities {
+  .hero-bg { position: relative; }
+  .hero-bg::before {
+    content: "";
+    position: absolute; inset: 0;
+    /* layered glow + base */
+    background:
+      radial-gradient(800px 600px at 22% 38%, rgba(255,107,0,.18), transparent 60%),
+      radial-gradient(600px 480px at 18% 72%, rgba(255,179,71,.10), transparent 60%),
+      linear-gradient(#0B0B0F, #0B0B0F);
+    z-index: 0;
+  }
+  .hero-bg::after {
+    content: "";
+    position: absolute; inset: 0;
+    /* subtle grid */
+    background:
+      linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px) 0 0 / 40px 40px,
+      linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px) 0 0 / 40px 40px;
+    opacity: .8;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .hero-content { position: relative; z-index: 1; }
+}
+
+/* tighten glass border so it pops on dark bg */
+.glass { border-color: rgba(255,255,255,.22); }
+
+/* sharper login button hover */
+.btn-primary { transition: transform .15s ease; }
+.btn-primary:hover { transform: translateY(-1px); }
+
