@@ -8,5 +8,29 @@
     "node-fetch": "^2.6.7",
     "openai": "^4.57.0",
     "uuid": "^9.0.1"
+  },
+  "version": "1.0.0",
+  "description": "This is a **frontend-first** AI agent demo with: - Login → App views (Chat, Tickets, Knowledge) - Local tools: tickets (localStorage), knowledge search (static), weather (Open‑Meteo) - Dual-mode AI:   - **Demo Mode** (no backend): heuristic responses, tools run locally   - **Live Mode** (real LLM): set `AGENT_CONFIG.apiBase` to your deployed URL (Vercel function provided)",
+  "main": "app.backup.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tw:build": "./node_modules/.bin/tailwindcss -i ./src/tw.css -o ./assets/tw.css --minify"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pratikbadole/tricharna-agent-prototype.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/pratikbadole/tricharna-agent-prototype/issues"
+  },
+  "homepage": "https://github.com/pratikbadole/tricharna-agent-prototype#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.10"
   }
 }
