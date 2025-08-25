@@ -3,96 +3,69 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>StrataMind — AI IT Helpdesk</title>
-  <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="./style.css" />
-<link href="https://fonts.bunny.net/css?family=inter:400,500,600|poppins:700" rel="stylesheet">
-<link rel="stylesheet" href="assets/tw.css">
+  <title>StrataMind – Login</title>
+  <link rel="stylesheet" href="assets/tw.css">
   <link rel="stylesheet" href="assets/overrides.css">
-<link href="https://fonts.bunny.net/css?family=inter:400,500,600|poppins:700" rel="stylesheet">
 </head>
-
-<body class="auth">
-<div id="auth-shell">
-  <!-- LEFT: Brand panel -->
-  <section class="auth-pane brand-pane hero-bg hidden md:flex flex-col justify-between p-10">
-    <div class="flex items-center gap-3">
-      <img src="brand/stratamind-monogram.svg" alt="StrataMind" class="w-9 h-9 drop-shadow" />
-      <div class="text-white/90 font-semibold tracking-wide">StrataMind</div>
-    </div>
-
-    <div class="px-2 hero-content">
-      <h1 class="font-display text-4xl md:text-5xl text-white leading-tight">
-        Discover the transformative power of
-        <span class="block text-brand-400">AI Helpdesk</span>
+<body class="login-grid min-h-screen flex items-center justify-center px-6">
+  <main class="w-full max-w-6xl grid md:grid-cols-2 gap-10 items-stretch">
+    <!-- LEFT: brand hero -->
+    <section class="glass-shell rounded-2xl shadow-glow p-8 md:p-10 flex flex-col justify-center min-h-[420px]">
+      <div class="brand-chip mb-6 w-fit">
+        <img src="brand/sm-monogram.svg" alt="StrataMind" class="h-8 w-8 rounded">
+        <span class="font-display text-white/90 text-xl">StrataMind</span>
+      </div>
+      <h1 class="font-display text-white text-4xl md:text-5xl leading-tight">
+        AI-Powered IT Helpdesk<br><span class="text-brand-400">for the Future</span>
       </h1>
       <p class="text-text1 mt-4 max-w-md">
-        AI-powered IT support for the future. Faster resolutions, smarter routing, delightful UX.
+        Reimagining IT support with intelligent automation, faster resolutions, and a delightful user experience.
       </p>
-    </div>
+    </section>
 
-    <div></div>
-  </section>
+    <!-- RIGHT: auth panel -->
+    <section class="glass-shell rounded-2xl shadow-glow p-6 md:p-8 flex flex-col justify-center min-h-[420px]">
+      <form id="loginForm" class="space-y-4">
+        <h2 class="text-2xl font-display text-brand-400">Login to StrataMind</h2>
 
-  <!-- RIGHT: Auth panel -->
-  <section class="auth-pane auth-right">
-    <div class="w-full max-w-md">
-      <div class="glass shadow-glow p-6 md:p-8 space-y-4">
-        <div class="text-center">
-          <h2 class="font-display text-3xl text-white">
-            Login to <span class="text-brand-400">StrataMind</span>
-          </h2>
-          <p class="text-xs text-text1 mt-2">Sign in to open, track, and resolve IT issues faster.</p>
+        <label class="block">
+          <span class="sr-only">Email</span>
+          <input id="email" type="email" placeholder="you@company.com"
+            class="w-full px-4 py-3 rounded-lg bg-bg1 border border-text1 text-white placeholder:text-text1/70 focus:outline-none focus:ring-2 focus:ring-brand-500" required>
+        </label>
+
+        <div class="relative">
+          <label class="sr-only" for="password">Password</label>
+          <input id="password" type="password" placeholder="Password"
+            class="w-full px-4 py-3 pr-12 rounded-lg bg-bg1 border border-text1 text-white placeholder:text-text1/70 focus:outline-none focus:ring-2 focus:ring-brand-500" required>
+          <button type="button" id="togglePass" class="eye-btn absolute right-3 top-1/2 -translate-y-1/2 text-text1">👁️</button>
         </div>
 
-        <form id="loginForm" class="space-y-3" autocomplete="on">
-          <input id="email" type="email" placeholder="you@company.com" class="input" required>
-          <div class="relative">
-            <input id="password" type="password" placeholder="Password" class="input pr-10" required>
-            <button type="button" id="togglePw" aria-label="Show password"
-              class="absolute inset-y-0 right-0 px-3 text-text1 hover:text-white/90">👁️</button>
-          </div>
-          <button type="submit" class="btn-primary">Login</button>
-          <div class="flex justify-between text-xs text-text1">
-            <a href="#" class="hover:text-white/80">Forgot password?</a>
-            <a href="#" id="goRegister" class="hover:text-white/80">Create account</a>
-          </div>
-          <p class="text-[11px] text-center text-text1 mt-2">
-            Demo — <span class="text-white">john@tricharna.com</span> / <span class="text-white">demo123</span>
-          </p>
-        </form>
+        <button type="submit"
+          class="w-full py-3 rounded-lg bg-gradient-to-r from-brand-500 to-brand-400 hover:shadow-glowLg text-white font-semibold transition">
+          Login
+        </button>
 
-        <form id="registerForm" class="space-y-3 hidden" autocomplete="on">
-          <input id="regName"  type="text"     placeholder="Full name"        class="input" required>
-          <input id="regEmail" type="email"    placeholder="you@company.com"  class="input" required>
-          <input id="regPw"    type="password" placeholder="Password"         class="input" required>
-          <input id="regPw2"   type="password" placeholder="Confirm password" class="input" required>
-          <button type="button" id="goLogin" class="text-xs text-text1 hover:text-white/80">
-            Already have an account? Login
-          </button>
-          <button type="submit" class="btn-primary mt-1">Create Account</button>
-        </form>
-      </div>
-    </div>
-  </section>
-</div>
+        <div class="text-sm text-text1 flex justify-between">
+          <a href="#" class="hover:underline">Forgot password?</a>
+          <a href="register.html" class="hover:underline">Create account</a>
+        </div>
+      </form>
+    </section>
+  </main>
 
-<script>
-  // password show/hide
-  const pw = document.getElementById('password');
-  const toggle = document.getElementById('togglePw');
-  if (toggle && pw) toggle.addEventListener('click', () => { pw.type = (pw.type === 'password' ? 'text' : 'password'); });
+  <!-- subtle watermark -->
+  <img src="brand/sm-monogram.svg" alt="StrataMind" class="logo-watermark">
 
-  // login <-> register
-  const lf = document.getElementById('loginForm');
-  const rf = document.getElementById('registerForm');
-  const toReg = document.getElementById('goRegister');
-  const toLog = document.getElementById('goLogin');
-  if (toReg && toLog && lf && rf) {
-    toReg.addEventListener('click', (e)=>{ e.preventDefault(); lf.classList.add('hidden'); rf.classList.remove('hidden'); });
-    toLog.addEventListener('click', (e)=>{ e.preventDefault(); rf.classList.add('hidden'); lf.classList.remove('hidden'); });
-  }
-</script>
+  <script>
+    document.getElementById("togglePass")?.addEventListener("click", () => {
+      const p = document.getElementById("password");
+      if (p) p.type = p.type === "password" ? "text" : "password";
+    });
+    document.getElementById("loginForm")?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      window.location.href = "home.html";
+    });
+  </script>
 </body>
-
 </html>
