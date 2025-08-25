@@ -3,111 +3,75 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>StrataMind — AI IT Helpdesk</title>
-  <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="./style.css" />
-<link href="https://fonts.bunny.net/css?family=inter:400,500,600|poppins:700" rel="stylesheet">
-<link rel="stylesheet" href="assets/tw.css">
-<link href="https://fonts.bunny.net/css?family=inter:400,500,600|poppins:700" rel="stylesheet">
+  <title>StrataMind — Login</title>
+  <link href="https://fonts.bunny.net/css?family=inter:400,500,600|poppins:700" rel="stylesheet">
+  <link rel="stylesheet" href="assets/tw.css">
+  <link rel="stylesheet" href="assets/overrides.css">
 </head>
-<body class="antialiased bg-bg0 flex items-center justify-center min-h-screen text-text0">
-
-  <!-- Login Screen -->
-  <section id="loginScreen" class="screen screen--login">
-    <div class="login-card">
-
-      
-<form id="loginForm" class="login-card-glow" class="glass w-full max-w-md p-6 md:p-8 rounded-2xl shadow-glow space-y-4">
-  <h1 class="text-3xl md:text-4xl font-display text-brand-400 leading-relaxed">Access Premium Support</h1>
-
-  <label class="block">
-    <span class="sr-only">Email</span>
-    <input id="email" type="email" placeholder="you@company.com"
-      class="w-full px-3 py-2 rounded-lg bg-bg1 border border-text1 text-white placeholder:text-text1/70 focus:outline-none focus:ring-2 focus:ring-brand-500" required>
-  </label>
-
-  <label class="block">
-    <span class="sr-only">Password</span>
-    <input id="password" type="password" placeholder="Password"
-      class="w-full px-3 py-2 rounded-lg bg-bg1 border border-text1 text-white placeholder:text-text1/70 focus:outline-none focus:ring-2 focus:ring-brand-500" required>
-  </label>
-
-  <button type="submit"
-    class="w-full py-3 rounded-lg bg-brand-500 hover:bg-brand-400 text-white transition shadow-glow">Login</button>
-
-  <p class="text-sm text-text1 mt-2">Demo creds — <span class="text-white">Email: john@tricharna.com</span> &nbsp; Password: <span class="text-white">demo123</span></p>
-</form>
-
+<body class="login-grid min-h-screen text-white">
+  <header class="max-w-7xl mx-auto px-6 pt-8">
+    <div class="flex items-center gap-3">
+      <img src="brand/stratamind-monogram.svg" alt="StrataMind" class="h-8 w-8 rounded drop-shadow">
+      <span class="font-display text-white/90 text-lg">StrataMind</span>
     </div>
-  </section>
+  </header>
 
-  <!-- Main App -->
-  <section id="mainApp" class="screen screen--app" style="display:none">
+  <main class="max-w-7xl mx-auto px-6 py-12 md:py-16">
+    <div class="login-shell">
+      <!-- LEFT: Hero -->
+      <section class="pr-6">
+        <h1 class="font-display text-4xl md:text-5xl leading-tight max-w-2xl">
+          Discover the transformative power of
+          <br><span class="text-brand-400">AI Helpdesk</span>
+        </h1>
+        <p class="text-text1 mt-4 max-w-xl">
+          AI-powered IT support for the future. Faster resolutions, smarter routing, delightful UX.
+        </p>
+      </section>
 
-    <main class="app-main">
-      <!-- Chat View -->
-      <section id="chatView" class="view" data-view="chat" style="display:block">
-        <div class="chat-layout">
-          <div class="chat-pane">
-            <div id="chatMessages" class="glass" class="glass" class="chat-messages" aria-live="polite"></div>
-            <form id="chatForm" class="chat-form">
-              <textarea id="chatInput" rows="2" placeholder="Ask me anything about tickets, knowledge, or weather…"></textarea>
-              <button type="submit" class="btn btn--primary">Send</button>
-            </form>
-          </div>
-          <aside class="side-pane">
-            <div class="card">
-              <h3>Weather</h3>
-              <div id="weatherPanel" class="weather-panel">
-                <label class="form-label" for="weatherCity">City</label>
-                <input id="weatherCity" placeholder="Berlin" />
-                <button id="weatherFetchBtn" class="btn btn--ghost">Get Weather</button>
-                <pre id="weatherOutput" class="weather-output">—</pre>
-              </div>
+      <!-- RIGHT: Login card -->
+      <section class="flex md:justify-start justify-center">
+        <form id="loginForm" class="form-card w-full max-w-sm md:w-[420px] space-y-4">
+          <h2 class="text-xl font-semibold text-white/90">Login to <span class="text-brand-400">StrataMind</span></h2>
+          <p class="text-xs text-text1/80 -mt-1">Sign in to open, track, and resolve IT issues faster.</p>
+
+          <label class="block">
+            <span class="sr-only">Email</span>
+            <input id="email" type="email" placeholder="you@company.com"
+              class="input" required>
+          </label>
+
+          <div>
+            <label class="sr-only" for="password">Password</label>
+            <div class="relative">
+              <input id="password" type="password" placeholder="Password" class="input pr-12" required>
+              <button type="button" id="togglePass" class="eye-btn absolute right-3 top-1/2 -translate-y-1/2 text-text1">👁️</button>
             </div>
-          </aside>
-        </div>
-      </section>
-
-      <!-- Tickets View -->
-      <section id="ticketsView" class="view" data-view="tickets" style="display:none">
-        <div class="toolbar">
-          <button id="createTicketBtn" class="btn btn--primary">+ Create Ticket</button>
-        </div>
-        <div id="ticketsContainer" class="tickets"></div>
-      </section>
-
-      <!-- Knowledge View -->
-      <section id="knowledgeView" class="view" data-view="knowledge" style="display:none">
-        <div class="toolbar">
-          <input id="knowledgeSearch" placeholder="Search knowledge…" />
-          <div class="filters">
-            <button class="filter-btn" data-cat="all">All</button>
-            <button class="filter-btn" data-cat="email">Email</button>
-            <button class="filter-btn" data-cat="vpn">VPN</button>
-            <button class="filter-btn" data-cat="hardware">Hardware</button>
           </div>
-        </div>
-        <div id="knowledgeContainer" class="knowledge"></div>
-      </section>
-    </main>
-  </section>
 
-  <!-- App code (ES module) -->
-  <script type="module" src="./app.js"></script>
-  <script type="module" src="./knowledge.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-<script type="module">
-  import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-  window.SUPABASE_URL = "https://sjwaezsuwcflhncyofbr.supabase.co";
-  window.SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNqd2FlenN1d2NmbGhuY3lvZmJyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU3NzUyNDAsImV4cCI6MjA3MTM1MTI0MH0.6CdlMtX9uFh_sh86mIF8ZDl0J_vlOnM9z29sNPUovOI";
-  window.supabase = createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY, {
-    auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
-  });
-</script>
-<img src="brand/sm-monogram.svg" alt="StrataMind" class="brand-logo">
-<img src="brand/sm-monogram.svg" alt="StrataMind" class="logo-watermark">
+          <button type="submit" class="btn-orange w-full">Login</button>
+
+          <div class="text-xs text-text1 flex justify-between">
+            <a href="#" class="hover:underline">Forgot password?</a>
+            <a href="register.html" class="hover:underline">Create account</a>
+          </div>
+
+          <p class="text-[11px] text-text1/80">
+            Demo — <span class="text-white">john@tricharna.com</span> / <span class="text-white">demo123</span>
+          </p>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <img src="brand/stratamind-monogram.svg" alt="StrataMind" class="logo-watermark">
+
+  <script>
+    (function(){
+      const p = document.getElementById('password');
+      const t = document.getElementById('togglePass');
+      if(p && t){ t.addEventListener('click',()=>{ p.type = (p.type==='password')?'text':'password'; }); }
+    })();
+  </script>
 </body>
 </html>

@@ -3,18 +3,67 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>StrataMind</title>
+  <title>StrataMind — Register</title>
+  <link href="https://fonts.bunny.net/css?family=inter:400,500,600|poppins:700" rel="stylesheet">
   <link rel="stylesheet" href="assets/tw.css">
   <link rel="stylesheet" href="assets/overrides.css">
 </head>
-<body class="login-grid flex items-center justify-center px-6">
-  <div class="glass-shell w-full max-w-4xl p-8 md:p-12 my-12 text-center space-y-6">
-    <div class="brand-chip mx-auto w-fit mb-6">
-      <img src="brand/stratamind-monogram.svg" alt="StrataMind" class="h-7 w-7 rounded">
+<body class="login-grid min-h-screen text-white">
+  <header class="max-w-7xl mx-auto px-6 pt-8">
+    <div class="flex items-center gap-3">
+      <img src="brand/stratamind-monogram.svg" alt="StrataMind" class="h-8 w-8 rounded drop-shadow">
       <span class="font-display text-white/90 text-lg">StrataMind</span>
     </div>
-    <h1 class="text-3xl md:text-4xl font-display text-brand-400">Register</h1>
-    <p class="text-text1">This page is under construction.</p>
-  </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-6 py-12 md:py-16">
+    <div class="login-shell">
+      <!-- LEFT: Hero -->
+      <section class="pr-6">
+        <h1 class="font-display text-4xl md:text-5xl leading-tight max-w-2xl">
+          Create your StrataMind account
+          <br><span class="text-brand-400">and get started</span>
+        </h1>
+        <p class="text-text1 mt-4 max-w-xl">
+          Join the next-gen AI helpdesk. It’s fast, minimal, and delightfully efficient.
+        </p>
+      </section>
+
+      <!-- RIGHT: Register card -->
+      <section class="flex md:justify-start justify-center">
+        <form id="registerForm" class="form-card w-full max-w-sm md:w-[420px] space-y-4">
+          <h2 class="text-xl font-semibold text-white/90">Create your account</h2>
+
+          <label class="block">
+            <span class="sr-only">Full name</span>
+            <input id="fullName" type="text" placeholder="Full name" class="input" required>
+          </label>
+
+          <label class="block">
+            <span class="sr-only">Email</span>
+            <input id="regEmail" type="email" placeholder="you@company.com" class="input" required>
+          </label>
+
+          <label class="block">
+            <span class="sr-only">Password</span>
+            <input id="regPassword" type="password" placeholder="Password" class="input" required>
+          </label>
+
+          <label class="block">
+            <span class="sr-only">Confirm Password</span>
+            <input id="regConfirm" type="password" placeholder="Confirm password" class="input" required>
+          </label>
+
+          <button type="submit" class="btn-orange w-full">Create account</button>
+
+          <div class="text-xs text-text1 text-center">
+            Already have an account? <a href="login.html" class="hover:underline">Login here</a>
+          </div>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <img src="brand/stratamind-monogram.svg" alt="StrataMind" class="logo-watermark">
 </body>
 </html>
