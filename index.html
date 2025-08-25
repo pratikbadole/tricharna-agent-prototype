@@ -6,8 +6,16 @@
   <title>Tricharna IT Support — AI Agent Prototype</title>
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="./style.css" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600</head>family=Poppins:wght@700</head>display=swap" rel="stylesheet">
 </head>
 <body>
+<header id="topBar" class="glass" style="position:sticky;top:0;z-index:10;padding:10px 16px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;">
+  <div class="brand-inline">
+    <img src="brand/stratamind-monogram.svg" alt="StrataMind monogram">
+    <img src="brand/stratamind-wordmark.svg" alt="StrataMind wordmark" style="height:24px">
+  </div>
+  <div style="opacity:.8;font-size:14px;">AI IT Helpdesk</div>
+</header>
 
   <!-- Login Screen -->
   <section id="loginScreen" class="screen screen--login">
@@ -46,7 +54,7 @@
       <section id="chatView" class="view" data-view="chat" style="display:block">
         <div class="chat-layout">
           <div class="chat-pane">
-            <div id="chatMessages" class="chat-messages" aria-live="polite"></div>
+            <div id="chatMessages" class="glass" class="glass" class="chat-messages" aria-live="polite"></div>
             <form id="chatForm" class="chat-form">
               <textarea id="chatInput" rows="2" placeholder="Ask me anything about tickets, knowledge, or weather…"></textarea>
               <button type="submit" class="btn btn--primary">Send</button>
@@ -104,5 +112,6 @@
     auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
   });
 </script>
+<img src="brand/stratamind-monogram.svg" alt="StrataMind" class="logo-watermark">
 </body>
 </html>
