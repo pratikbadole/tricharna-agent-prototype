@@ -1,20 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>StrataMind</title>
-  <link rel="stylesheet" href="assets/tw.css">
-  <link rel="stylesheet" href="assets/overrides.css">
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>StrataMind — Helpdesk</title>
+  <link href="https://fonts.bunny.net/css?family=inter:400,500,600|poppins:700" rel="stylesheet">
+  <style>
+    :root{
+      --bg0:#0b0b0f; --glass:hsla(0,0%,100%,.06); --glass-b:hsla(0,0%,100%,.12);
+      --text0:#fff; --text1:#b8b8b8; --brand:#ff6b00; --brand2:#ff9a3c; --teal:#00c2ff;
+    }
+    *{box-sizing:border-box} html,body{height:100%}
+    body{margin:0;background:var(--bg0);color:var(--text0);
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+    body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
+      background:radial-gradient(1200px 600px at 18% 36%,rgba(255,107,0,.10),transparent 60%),
+                 radial-gradient(900px 520px at 86% 80%,rgba(255,107,0,.06),transparent 55%),var(--bg0)}
+    body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+      background:linear-gradient(transparent 31px,rgba(255,255,255,.05) 32px),
+                 linear-gradient(90deg,transparent 31px,rgba(255,255,255,.05) 32px);
+      background-size:32px 32px}
+    .container{max-width:1280px;margin:0 auto;padding:24px}
+    .brand{display:flex;align-items:center;gap:.6rem;padding:.45rem .8rem;border-radius:999px;
+      background:var(--glass);border:1px solid var(--glass-b)}
+    .brand img{width:26px;height:26px;display:block}
+    .top{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .right{display:flex;align-items:center;gap:10px;color:var(--text1);font-size:14px}
+    .avatar{width:28px;height:28px;border-radius:50%;background:#2a2b30}
+    .layout{display:grid;gap:16px;margin-top:16px}
+    @media(min-width:1100px){.layout{grid-template-columns:260px 1fr 300px}}
+    .panel{background:var(--glass);border:1px solid var(--glass-b);border-radius:16px;
+      backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+    .col{padding:14px}
+    .h6{font-weight:600;color:#fff;margin:0 0 8px;font-size:14px;letter-spacing:.2px}
+    .small{color:var(--text1);font-size:12px}
+    /* chat */
+    .chat{display:flex;flex-direction:column;height:68vh}
+    @media(min-width:1100px){.chat{height:76vh}}
+    .stream{flex:1;overflow:auto;padding:16px 16px 6px}
+    .msg{max-width:80%;padding:10px 12px;border-radius:12px;margin:8px 0;font-size:14px;line-height:1.35}
+    .ai{background:#1a1c22;border:1px solid var(--glass-b);box-shadow:0 0 0 1px rgba(255,107,0,.05) inset}
+    .me{background:#22242b;border:1px solid rgba(255,255,255,.08);margin-left:auto}
+    .inputbar{display:flex;gap:8px;padding:10px;border-top:1px solid var(--glass-b)}
+    .in{flex:1;border:1px solid var(--glass-b);border-radius:12px;background:#14151a;color:#fff;
+      padding:12px 14px;font-size:14px}
+    .btn{border:none;border-radius:12px;padding:12px 16px;font-weight:700;cursor:pointer}
+    .primary{color:#fff;background:linear-gradient(180deg,var(--brand),var(--brand2));box-shadow:0 10px 26px rgba(255,107,0,.25)}
+    .iconbtn{width:44px;border-radius:12px;background:var(--glass);border:1px solid var(--glass-b);color:#fff}
+    /* simple lists */
+    .ticket{display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:10px;
+      border:1px solid var(--glass-b);background:#14151a;margin-bottom:8px}
+    .badge{padding:4px 8px;border-radius:999px;font-size:11px;border:1px solid var(--glass-b)}
+    .b-open{background:rgba(255,107,0,.15);color:#ffd7bf}
+    .b-ip{background:rgba(0,194,255,.15);color:#cdefff}
+    .kb{padding:10px;border:1px solid var(--glass-b);border-radius:10px;background:#14151a;margin-bottom:8px}
+    /* watermark */
+    .wm{position:fixed;right:18px;bottom:18px;opacity:.22;filter:drop-shadow(0 0 18px rgba(255,107,0,.35));width:48px}
+  </style>
 </head>
-<body class="login-grid flex items-center justify-center px-6">
-  <div class="glass-shell w-full max-w-4xl p-8 md:p-12 my-12 text-center space-y-6">
-    <div class="brand-chip mx-auto w-fit mb-6">
-      <img src="brand/stratamind-monogram.svg" alt="StrataMind" class="h-7 w-7 rounded">
-      <span class="font-display text-white/90 text-lg">StrataMind</span>
-    </div>
-    <h1 class="text-3xl md:text-4xl font-display text-brand-400">Helpdesk</h1>
-    <p class="text-text1">This page is under construction.</p>
+<body>
+  <div class="container">
+    <header class="top">
+      <div class="brand"><img src="brand/sm-monogram.svg" alt="SM"><strong>StrataMind</strong></div>
+      <div class="right"><span>john@company.com</span><div class="avatar"></div></div>
+    </header>
+
+    <main class="layout">
+      <!-- Left rail: Tickets Overview -->
+      <aside class="panel col">
+        <p class="h6">Tickets Overview</p>
+        <div class="ticket"><span class="small">#A184 · VPN not connecting</span><span class="badge b-open">Open</span></div>
+        <div class="ticket"><span class="small">#A162 · Laptop fan noise</span><span class="badge b-ip">In progress</span></div>
+        <div class="ticket"><span class="small">#A155 · Reset MFA</span><span class="badge">Resolved</span></div>
+      </aside>
+
+      <!-- Center: Chat -->
+      <section class="panel chat">
+        <div class="stream">
+          <div class="msg ai">Hi! I’m StrataMind. How can I help with your IT issue today?</div>
+          <div class="msg me">My VPN keeps dropping every 10 minutes.</div>
+          <div class="msg ai">I can check common causes and create a ticket if needed. Are you on Wi-Fi or Ethernet?</div>
+        </div>
+        <div class="inputbar">
+          <button class="iconbtn" title="Attach">📎</button>
+          <input class="in" placeholder="Describe your issue…"/>
+          <button class="btn primary">Send</button>
+        </div>
+      </section>
+
+      <!-- Right rail: Knowledge -->
+      <aside class="panel col">
+        <p class="h6">Knowledge Suggestions</p>
+        <div class="kb"><strong class="small" style="display:block;color:#fff">VPN: Keepalive timeouts</strong>
+          <span class="small">Adjust client keepalive to 25s and disable battery saver.</span></div>
+        <div class="kb"><strong class="small" style="display:block;color:#fff">Okta: Re-enroll MFA</strong>
+          <span class="small">Remove old device in Settings → Security → Devices.</span></div>
+      </aside>
+    </main>
   </div>
+  <img class="wm" src="brand/sm-monogram.svg" alt="SM watermark"/>
 </body>
 </html>

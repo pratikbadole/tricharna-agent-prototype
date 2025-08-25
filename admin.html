@@ -1,20 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>StrataMind</title>
-  <link rel="stylesheet" href="assets/tw.css">
-  <link rel="stylesheet" href="assets/overrides.css">
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>StrataMind — Admin</title>
+  <link href="https://fonts.bunny.net/css?family=inter:400,500,600|poppins:700" rel="stylesheet">
+  <style>
+    :root{
+      --bg0:#0b0b0f; --glass:hsla(0,0%,100%,.06); --glass-b:hsla(0,0%,100%,.12);
+      --text0:#fff; --text1:#b8b8b8; --brand:#ff6b00; --brand2:#ff9a3c; --teal:#00c2ff; --green:#26d07c;
+    }
+    *{box-sizing:border-box} html,body{height:100%}
+    body{margin:0;background:var(--bg0);color:var(--text0);
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+    .container{max-width:1280px;margin:0 auto;padding:24px}
+    .top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:flex;align-items:center;gap:.6rem;padding:.45rem .8rem;border-radius:999px;
+      background:var(--glass);border:1px solid var(--glass-b)}
+    .brand img{width:26px;height:26px}
+    .h6{font-weight:600;color:#fff;margin:0 0 8px;font-size:14px;letter-spacing:.2px}
+    .small{color:var(--text1);font-size:12px}
+    .panel{background:var(--glass);border:1px solid var(--glass-b);border-radius:16px;
+      backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+    .kpis{display:grid;gap:12px;margin-top:16px}
+    @media(min-width:860px){.kpis{grid-template-columns:repeat(4,1fr)}}
+    .kpi{padding:14px}
+    .num{font-family:Poppins,Inter,ui-sans-serif,system-ui;font-size:28px}
+    .chip{padding:8px 12px;border-radius:999px;background:var(--glass);border:1px solid var(--glass-b);color:#fff;font-size:13px;cursor:pointer}
+    .filters{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+    .grid{display:grid;gap:16px;margin-top:18px}
+    @media(min-width:860px){.grid{grid-template-columns:repeat(3,1fr)}}
+    .card{background:var(--glass);border:1px solid var(--glass-b);border-radius:16px;padding:14px;min-height:120px}
+    .row{display:flex;justify-content:space-between;gap:10px;align-items:center}
+    .badge{padding:4px 8px;border-radius:999px;font-size:11px;border:1px solid var(--glass-b)}
+    .b-open{background:rgba(255,107,0,.15);color:#ffd7bf}
+    .b-ip{background:rgba(0,194,255,.15);color:#cdefff}
+    .viewtog{margin-left:auto}
+    .tbl{width:100%;border-collapse:separate;border-spacing:0 8px;margin-top:16px}
+    .tbl td,.tbl th{padding:10px 12px;background:var(--glass);border:1px solid var(--glass-b)}
+    .tbl th{background:#15161b;text-align:left}
+  </style>
 </head>
-<body class="login-grid flex items-center justify-center px-6">
-  <div class="glass-shell w-full max-w-4xl p-8 md:p-12 my-12 text-center space-y-6">
-    <div class="brand-chip mx-auto w-fit mb-6">
-      <img src="brand/stratamind-monogram.svg" alt="StrataMind" class="h-7 w-7 rounded">
-      <span class="font-display text-white/90 text-lg">StrataMind</span>
-    </div>
-    <h1 class="text-3xl md:text-4xl font-display text-brand-400">Admin</h1>
-    <p class="text-text1">This page is under construction.</p>
+<body>
+  <div class="container">
+    <header class="top">
+      <div class="brand"><img src="brand/sm-monogram.svg" alt="SM"><strong>StrataMind Admin</strong></div>
+      <div class="small">Signed in as admin@company.com</div>
+    </header>
+
+    <!-- KPI tiles -->
+    <section class="kpis">
+      <div class="panel kpi"><div class="small">Open</div><div class="num">42</div></div>
+      <div class="panel kpi"><div class="small">In Progress</div><div class="num">19</div></div>
+      <div class="panel kpi"><div class="small">Resolved Today</div><div class="num">58</div></div>
+      <div class="panel kpi"><div class="small">SLA Risks</div><div class="num">3</div></div>
+    </section>
+
+    <!-- Command bar -->
+    <section class="filters">
+      <span class="chip">All</span>
+      <span class="chip">Open</span>
+      <span class="chip">In Progress</span>
+      <span class="chip">Resolved</span>
+      <span class="chip">Closed</span>
+      <span class="chip">Unassigned</span>
+      <span class="chip">My Queue</span>
+      <span class="chip viewtog">Cards ▸</span>
+    </section>
+
+    <!-- Cards view -->
+    <section class="grid">
+      <article class="card">
+        <div class="row"><div class="badge b-open">Open</div><span class="small">High · VPN</span></div>
+        <h4 style="margin:6px 0 4px">#OPS-1042 · VPN disconnects when switching Wi-Fi</h4>
+        <div class="small">Requester: ivy@ • Updated 2m • Unassigned</div>
+      </article>
+      <article class="card">
+        <div class="row"><div class="badge b-ip">In Progress</div><span class="small">Medium · Email</span></div>
+        <h4 style="margin:6px 0 4px">#OPS-1043 · Outlook add-in disabled</h4>
+        <div class="small">Assignee: you • Updated 8m</div>
+      </article>
+      <article class="card">
+        <div class="row"><div class="badge">Resolved</div><span class="small">Low · Access</span></div>
+        <h4 style="margin:6px 0 4px">#OPS-1040 · GitLab access</h4>
+        <div class="small">Resolved 20m by alex@</div>
+      </article>
+    </section>
+
+    <!-- Table view (placeholder, shown alongside for now) -->
+    <table class="tbl">
+      <thead><tr><th>ID</th><th>Title</th><th>Status</th><th>Urgency</th><th>Category</th><th>Assignee</th><th>Updated</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>#OPS-1039</td><td>Reset MFA</td><td>Open</td><td>Low</td><td>Access</td><td>—</td><td>1h</td>
+        </tr>
+        <tr>
+          <td>#OPS-1038</td><td>Zoom not launching</td><td>In Progress</td><td>Medium</td><td>Software</td><td>sam@</td><td>12m</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </body>
 </html>
