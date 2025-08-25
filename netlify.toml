@@ -45,3 +45,9 @@
 [[edge_functions]]
 path = "/api/chat/stream"
 function = "chat-stream"
+
+[[redirects]]
+from = "/api/is_admin"
+to = "/.netlify/functions/is_admin"
+status = 200
+force = true
