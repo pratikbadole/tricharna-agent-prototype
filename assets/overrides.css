@@ -16,8 +16,8 @@
   content:"";
   position:absolute; inset:0; pointer-events:none;
   background:
-    radial-gradient(950px 560px at 22% 42%, rgba(255,107,0,.12) 0%, rgba(0,0,0,0) 60%),
-    radial-gradient(680px 440px at 78% 72%, rgba(255,107,0,.08) 0%, rgba(0,0,0,0) 55%);
+    radial-gradient(950px 560px at 22% 42%, rgba(255,107,0,.10) 0%, rgba(0,0,0,0) 60%),
+    radial-gradient(680px 440px at 78% 72%, rgba(255,107,0,.06) 0%, rgba(0,0,0,0) 55%);
 }
 
 /* Center the whole split panel */
@@ -63,3 +63,6 @@
 
 /* Eye icon for password */
 .eye-btn{ cursor:pointer; user-select:none }
+
+/* Canvas background layer */
+0
