@@ -297,3 +297,16 @@ body{position:static !important; z-index:auto !important;}
 /* CTA banner: compact */
 .page-home .cta{ padding: 14px 16px; }
 .page-home .cta-text{ font-weight: 700; }
+/* Home page tweaks */
+.page{ background:#0b0b0f; position:relative; z-index:1; }
+.glass{
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 0 36px rgba(255,107,0,.14);
+}
+.text-brand-400{ color:#FF6B00; }
+.bg-brand-500{ background:#FF6B00; } .bg-brand-500:hover{ background:#ff7f26; }
+/* keep the grid watermark behind everything */
+#bg-net-home{ z-index:0; }
