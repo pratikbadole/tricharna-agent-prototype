@@ -70,3 +70,7 @@
 body>*{position:relative;z-index:1;}
 
 #bg-mesh{position:fixed;inset:0;z-index:-1;pointer-events:none;}
+/* === BG mesh visibility fix === */
+#bg-mesh{position:fixed;inset:0;z-index:0;pointer-events:none;}
+.page,.stage,.login-grid{position:relative;z-index:1;}
+body{position:static !important; z-index:auto !important;}
