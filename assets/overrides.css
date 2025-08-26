@@ -66,3 +66,6 @@
 
 /* Canvas background layer */
 0
+
+#bg-mesh{position:fixed;inset:0;z-index:0;pointer-events:none;}
+body>*{position:relative;z-index:1;}
