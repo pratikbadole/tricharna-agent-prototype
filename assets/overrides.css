@@ -399,3 +399,7 @@ body{position:static !important; z-index:auto !important;}
   z-index: -1;          /* Prevent covering the canvas */
   pointer-events: none;
 }
+/* HOME_MESH_LAYERING_V2 */
+#bg-net{position:fixed;inset:0;z-index:0;pointer-events:none}
+.page{position:relative;z-index:1}
+body::before,.page::before{z-index:-1 !important}
