@@ -1,61 +1,91 @@
+// Orange network mesh for HOME
 (() => {
   const DPR = Math.min(2, window.devicePixelRatio || 1);
-  const canvas = document.createElement('canvas');
-  canvas.id = 'bg-net-home';
-  Object.assign(canvas.style, { position:'fixed', inset:'0', zIndex:'0', pointerEvents:'none' });
-  document.body.prepend(canvas);
-  const ctx = canvas.getContext('2d');
+  const c = document.createElement('canvas');
+  c.id = 'bg-net-home';
+  document.body.prepend(c);
+  const ctx = c.getContext('2d');
 
-  let W=0, H=0, pts=[];
-  const DENSITY = 0.55;   // lower => fewer points
-  const RANGE   = 110;
-  const ORANGE  = (a)=>`rgba(255,107,0,${a})`;
-
+  let W=0, H=0, pts=[], links=[];
   function resize(){
-    W = innerWidth; H = innerHeight;
-    canvas.width = W * DPR; canvas.height = H * DPR;
-    canvas.style.width = W+'px'; canvas.style.height = H+'px';
+    W = window.innerWidth; H = window.innerHeight;
+    c.width = W * DPR; c.height = H * DPR;
+    c.style.width = W+'px'; c.style.height = H+'px';
     ctx.setTransform(DPR,0,0,DPR,0,0);
     build();
   }
+
   function build(){
     pts = [];
-    const nx = Math.ceil(W/90), ny = Math.ceil(H/90);
-    for(let y=0;y<=ny;y++){
-      for(let x=0;x<=nx;x++){
-        if(Math.random() < DENSITY){
-          pts.push({ x:(x+(y%2?0.5:0))*(W/nx), y:y*(H/ny), p:Math.random()*Math.PI*2 });
-        }
+    const gap = Math.max(50, Math.min(90, Math.floor(W/18))); // adaptive density
+    for(let y=-20; y<H+40; y+=gap){
+      for(let x=-20; x<W+40; x+=gap){
+        const jx = x + (Math.random()*gap*0.4 - gap*0.2);
+        const jy = y + (Math.random()*gap*0.4 - gap*0.2);
+        pts.push({x: jx, y: jy, z: Math.random()*2*Math.PI});
+      }
+    }
+    // connect k-nearest (~2) for long filaments
+    links = [];
+    const k = 2;
+    for(let i=0;i<pts.length;i++){
+      const pi = pts[i];
+      const dists = [];
+      for(let j=0;j<pts.length;j++){
+        if(i===j) continue;
+        const pj = pts[j];
+        const dx = pi.x-pj.x, dy = pi.y-pj.y;
+        dists.push([dx*dx+dy*dy, j]);
+      }
+      dists.sort((a,b)=>a[0]-b[0]);
+      for(let n=0;n<k;n++){
+        links.push([i, dists[n][1]]);
       }
     }
   }
-  function draw(t){
-    const time=(t||0)/1000;
-    ctx.clearRect(0,0,W,H);
-    const g = ctx.createRadialGradient(W*0.22, H*0.42, 0, W*0.22, H*0.42, Math.max(W,H)*0.6);
-    g.addColorStop(0, ORANGE(0.09)); g.addColorStop(1,'rgba(0,0,0,0)');
-    ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
 
-    ctx.lineWidth = 0.8;
-    for(let i=0;i<pts.length;i++){
-      const p=pts[i];
-      for(let j=i+1;j<pts.length;j++){
-        const q=pts[j], dx=p.x-q.x, dy=p.y-q.y, d=Math.hypot(dx,dy);
-        if(d<RANGE){
-          ctx.globalAlpha = 0.10*(1-d/RANGE);
-          ctx.strokeStyle = ORANGE(0.35);
-          ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(q.x,q.y); ctx.stroke();
-        }
-      }
-    }
-    ctx.globalAlpha=1;
+  function draw(tms){
+    const t = (tms||0)/1000;
+    ctx.clearRect(0,0,W,H);
+
+    // soft orange blooms
+    const g1 = ctx.createRadialGradient(W*0.25, H*0.45, 0, W*0.25, H*0.45, 520);
+    g1.addColorStop(0,'rgba(255,107,0,0.10)'); g1.addColorStop(1,'rgba(0,0,0,0)');
+    const g2 = ctx.createRadialGradient(W*0.75, H*0.65, 0, W*0.75, H*0.65, 480);
+    g2.addColorStop(0,'rgba(255,107,0,0.06)'); g2.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle = g1; ctx.fillRect(0,0,W,H);
+    ctx.fillStyle = g2; ctx.fillRect(0,0,W,H);
+
+    // animate nodes a tiny bit (breathing)
     for(const p of pts){
-      const r = 1 + 0.7*Math.sin(time*1.2 + p.p);
-      ctx.fillStyle=ORANGE(0.35);
-      ctx.beginPath(); ctx.arc(p.x,p.y,r,0,Math.PI*2); ctx.fill();
+      p.rx = p.x + Math.sin(t*0.6 + p.z)*3;
+      p.ry = p.y + Math.cos(t*0.5 + p.z)*3;
+    }
+
+    // long orange filaments
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(255,107,0,0.35)';
+    ctx.beginPath();
+    for(const [a,b] of links){
+      const p = pts[a], q = pts[b];
+      ctx.moveTo(p.rx, p.ry); ctx.lineTo(q.rx, q.ry);
+    }
+    ctx.stroke();
+
+    // subtle nodes
+    for(const p of pts){
+      const r = 0.9 + 0.5*Math.sin(t*1.3 + p.z);
+      ctx.fillStyle = 'rgba(255,255,255,0.22)';
+      ctx.beginPath(); ctx.arc(p.rx, p.ry, r, 0, Math.PI*2); ctx.fill();
+      // warm cores
+      if(Math.random()<0.02){
+        ctx.fillStyle = 'rgba(255,107,0,0.65)';
+        ctx.beginPath(); ctx.arc(p.rx, p.ry, 1.1, 0, Math.PI*2); ctx.fill();
+      }
     }
     requestAnimationFrame(draw);
   }
-  addEventListener('resize', resize);
+
+  window.addEventListener('resize', resize);
   resize(); requestAnimationFrame(draw);
 })();
