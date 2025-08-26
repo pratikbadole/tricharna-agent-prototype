@@ -104,5 +104,18 @@
 })();
 </script>
   <script src="assets/bg/mesh-net.js" defer></script>
+<script id="login-redirect-inline">
+document.addEventListener('DOMContentLoaded', function(){
+  var f = document.getElementById('loginForm');
+  if (!f) return;
+  if (!f.dataset.redirectBound) {
+    f.addEventListener('submit', function(e){
+      e.preventDefault();
+      window.location.href = 'home.html';
+    });
+    f.dataset.redirectBound = '1';
+  }
+});
+</script>
 </body>
 </html>
