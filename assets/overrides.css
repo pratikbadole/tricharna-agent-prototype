@@ -244,3 +244,56 @@ body{position:static !important; z-index:auto !important;}
 }
 .footer-links a{ color:rgba(255,255,255,.75); margin-left:14px; text-decoration:none; }
 .footer-links a:hover{ color:#fff; }
+
+/* ===== Minimal homepage pass (scoped to .page-home) ===== */
+.page-home .container{ max-width: 1120px; }
+
+.page-home{
+  /* lower-intensity blooms */
+  background:
+    radial-gradient(900px 420px at 20% 38%, rgba(255,107,0,.06) 0%, rgba(0,0,0,0) 60%),
+    radial-gradient(750px 420px at 85% 75%, rgba(255,107,0,.04) 0%, rgba(0,0,0,0) 55%),
+    #0b0b0f;
+}
+
+/* Calmer glass */
+.page-home .glass-shell{
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.10);
+  box-shadow: none; /* kill glow */
+}
+
+/* Cards: minimal lift */
+.page-home .card{ transition: transform .12s ease; }
+.page-home .card:hover{ transform: translateY(-2px); box-shadow: none; }
+
+/* Hero spacing & type scale */
+.page-home .home-hero{ padding: 18px 0 10px; }
+.page-home .hero-title{ font-weight: 800; font-size: clamp(2rem, 5.2vw, 3rem); }
+.page-home .hero-sub{ color: rgba(255,255,255,.72); }
+
+/* Buttons: slimmer, minimal */
+.page-home .btn{ border-radius: 10px; padding: .6rem .95rem; }
+.page-home .btn-primary{ box-shadow: none; }
+.page-home .btn-primary:hover{ transform: translateY(-1px); box-shadow: none; }
+.page-home .btn-primary.btn-lg{ padding: .8rem 1.15rem; }
+.page-home .btn-glass{ background: rgba(255,255,255,.05); }
+
+/* Placeholders: no dashed borders, softer blocks */
+.page-home .hero-visual{ min-height: 220px; }
+.page-home .hero-visual-placeholder,
+.page-home .demo-placeholder,
+.page-home .why-graphic-placeholder{
+  border: none;
+  background: rgba(255,255,255,.03);
+  color: rgba(255,255,255,.75);
+  border-radius: 12px;
+}
+
+/* Feature icons: a bit subtler */
+.page-home .icon-line{ color:#FF8A35; opacity:.9; }
+.page-home .icon{ width:24px; height:24px; }
+
+/* CTA banner: compact */
+.page-home .cta{ padding: 14px 16px; }
+.page-home .cta-text{ font-weight: 700; }
