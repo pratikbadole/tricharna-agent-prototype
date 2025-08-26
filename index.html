@@ -1,76 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>StrataMind — Login</title>
   <link href="https://fonts.bunny.net/css?family=inter:400,500,600|poppins:700" rel="stylesheet">
   <link rel="stylesheet" href="assets/tw.css">
   <link rel="stylesheet" href="assets/overrides.css">
 </head>
-<body class="login-grid min-h-screen text-white">
-  <header class="max-w-7xl mx-auto px-6 pt-8">
-    <div class="flex items-center gap-3">
-      <img src="brand/stratamind-monogram.svg" alt="StrataMind" class="h-8 w-8 rounded drop-shadow">
-      <span class="font-display text-white/90 text-lg">StrataMind</span>
-    </div>
-  </header>
+<body class="login-stage antialiased text-white">
+  <div class="fixed top-6 left-6 brand-chip z-10">
+    <img src="brand/sm-monogram.svg" alt="StrataMind" class="h-7 w-7 rounded">
+    <span class="font-display text-white/90">StrataMind</span>
+  </div>
 
-  <main class="max-w-7xl mx-auto px-6 py-12 md:py-16">
-    <div class="login-shell">
-      <!-- LEFT: Hero -->
-      <section class="pr-6">
-        <h1 class="font-display text-4xl md:text-5xl leading-tight max-w-2xl">
-          Discover the transformative power of
-          <br><span class="text-brand-400">AI Helpdesk</span>
-        </h1>
-        <p class="text-text1 mt-4 max-w-xl">
-          AI-powered IT support for the future. Faster resolutions, smarter routing, delightful UX.
+  <main class="w-full max-w-6xl mx-auto px-6 py-10 grid md:grid-cols-2 items-center gap-14 min-h-screen">
+    <!-- Left side: hero copy with optional texture -->
+    <section class="relative">
+      <div class="absolute inset-0 hero-texture"></div>
+      <h1 class="font-display text-4xl md:text-5xl leading-tight text-white">
+        Discover the transformative power of
+        <span class="text-brand-400">AI Helpdesk</span>
+      </h1>
+      <p class="text-text1 mt-3 max-w-xl">
+        AI-powered IT support for the future. Faster resolutions, smarter routing, delightful UX.
+      </p>
+    </section>
+
+    <!-- Right side: centered auth card -->
+    <section class="flex md:justify-end">
+      <form id="loginForm"
+        class="glass-shell w-full md:w-[420px] p-6 space-y-4">
+        <div class="text-white/90 font-semibold">Login to <span class="text-brand-400">StrataMind</span></div>
+        <div class="text-xs text-text1 -mt-2">Sign in to open, track, and resolve IT issues faster.</div>
+
+        <label class="block">
+          <span class="sr-only">Email</span>
+          <input id="email" type="email" placeholder="you@company.com"
+            class="w-full px-3 py-2 rounded-lg bg-bg1 border border-text1 text-white placeholder:text-text1/70 focus:outline-none focus:ring-2 focus:ring-brand-500" required>
+        </label>
+
+        <div>
+          <label class="sr-only" for="password">Password</label>
+          <div class="relative">
+            <input id="password" type="password" placeholder="Password"
+              class="w-full px-3 py-2 pr-12 rounded-lg bg-bg1 border border-text1 text-white placeholder:text-text1/70 focus:outline-none focus:ring-2 focus:ring-brand-500" required>
+            <span id="togglePass" class="eye-btn absolute right-3 top-1/2 -translate-y-1/2 text-text1">👁️</span>
+          </div>
+        </div>
+
+        <button type="submit"
+          class="w-full py-3 rounded-lg bg-brand-500 hover:bg-brand-400 text-white transition shadow-glow">
+          Login
+        </button>
+
+        <div class="text-xs text-text1 flex justify-between">
+          <a href="#" class="hover:underline">Forgot password?</a>
+          <a href="register.html" class="hover:underline">Create account</a>
+        </div>
+
+        <p class="text-[11px] text-text1/80 pt-1">Demo —
+          <span class="text-white">john@tricharna.com</span> /
+          <span class="text-white">demo123</span>
         </p>
-      </section>
-
-      <!-- RIGHT: Login card -->
-      <section class="flex md:justify-start justify-center">
-        <form id="loginForm" class="form-card w-full max-w-sm md:w-[420px] space-y-4">
-          <h2 class="text-xl font-semibold text-white/90">Login to <span class="text-brand-400">StrataMind</span></h2>
-          <p class="text-xs text-text1/80 -mt-1">Sign in to open, track, and resolve IT issues faster.</p>
-
-          <label class="block">
-            <span class="sr-only">Email</span>
-            <input id="email" type="email" placeholder="you@company.com"
-              class="input" required>
-          </label>
-
-          <div>
-            <label class="sr-only" for="password">Password</label>
-            <div class="relative">
-              <input id="password" type="password" placeholder="Password" class="input pr-12" required>
-              <button type="button" id="togglePass" class="eye-btn absolute right-3 top-1/2 -translate-y-1/2 text-text1">👁️</button>
-            </div>
-          </div>
-
-          <button type="submit" class="btn-orange w-full">Login</button>
-
-          <div class="text-xs text-text1 flex justify-between">
-            <a href="#" class="hover:underline">Forgot password?</a>
-            <a href="register.html" class="hover:underline">Create account</a>
-          </div>
-
-          <p class="text-[11px] text-text1/80">
-            Demo — <span class="text-white">john@tricharna.com</span> / <span class="text-white">demo123</span>
-          </p>
-        </form>
-      </section>
-    </div>
+      </form>
+    </section>
   </main>
-
-  <img src="brand/stratamind-monogram.svg" alt="StrataMind" class="logo-watermark">
 
   <script>
     (function(){
-      const p = document.getElementById('password');
-      const t = document.getElementById('togglePass');
-      if(p && t){ t.addEventListener('click',()=>{ p.type = (p.type==='password')?'text':'password'; }); }
+      const p=document.getElementById('password');
+      const t=document.getElementById('togglePass');
+      if(p&&t){ t.addEventListener('click',()=>{ p.type = (p.type==='password')?'text':'password'; }); }
     })();
   </script>
 </body>

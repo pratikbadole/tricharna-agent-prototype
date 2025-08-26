@@ -1,161 +1,36 @@
-/* Subtle grid + orange bloom on deep black */
-.login-grid {
-  min-height: 100vh;
-  background:
-    radial-gradient(1200px 600px at 20% 35%, rgba(255,107,0,.10) 0%, rgba(0,0,0,0) 60%),
-    radial-gradient(900px 500px at 85% 75%, rgba(255,107,0,.06) 0%, rgba(0,0,0,0) 55%),
-    #0b0b0f;
-  position: relative;
-}
-.login-grid::before{
-
-/* stronger bloom for hero */
-.login-grid{
-  background: radial-gradient(1100px 520px at 22% 40%, rgba(255,107,0,.12) 0%, rgba(0,0,0,0) 60%),
-              radial-gradient(800px 420px at 78% 72%, rgba(255,107,0,.07) 0%, rgba(0,0,0,0) 55%), #0b0b0f;
-}
-
-
-/* stronger bloom for hero */
-.login-grid{
-  background: radial-gradient(1100px 520px at 22% 40%, rgba(255,107,0,.12) 0%, rgba(0,0,0,0) 60%),
-              radial-gradient(800px 420px at 78% 72%, rgba(255,107,0,.07) 0%, rgba(0,0,0,0) 55%), #0b0b0f;
-}
-
-  content:"";
-  position:absolute; inset:0;
+/* Page canvas + subtle grid */
+.login-stage{min-height:100vh;position:relative;background:#0b0b0f}
+.login-stage::before{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.55;
   background:
     linear-gradient(transparent 31px, rgba(255,255,255,.05) 32px),
     linear-gradient(90deg, transparent 31px, rgba(255,255,255,.05) 32px);
-  background-size: 32px 32px;
-  pointer-events:none;
+  background-size:32px 32px;
 }
-
-.glass-shell{
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(255,255,255,.12);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-radius: 16px;
-  box-shadow: 0 0 36px rgba(255,107,0,.22);
-}
-.brand-chip{
-  display:flex; align-items:center; gap:.6rem;
-  padding:.5rem .8rem; border-radius:999px;
-  background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12);
-}
-.eye-btn{ cursor:pointer; user-select:none; }
-
-/* ---- TUNE: stronger vignette + clearer grid + deeper glass ---- */
-.login-grid{
-  /* stronger dual blooms + soft vignette */
+/* Orange bloom glows (very soft) */
+.login-stage::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
   background:
-    radial-gradient(1300px 700px at 20% 40%, rgba(255,107,0,.18) 0%, rgba(255,107,0,.05) 35%, rgba(0,0,0,0) 60%),
-    radial-gradient(900px 520px at 82% 72%, rgba(255,107,0,.10) 0%, rgba(0,0,0,0) 55%),
-    radial-gradient(1400px 900px at 50% 100%, rgba(0,0,0,.35) 0%, rgba(0,0,0,.0) 60%),
-    #0b0b0f;
+    radial-gradient(900px 540px at 22% 42%, rgba(255,107,0,.12) 0%, rgba(0,0,0,0) 60%),
+    radial-gradient(640px 420px at 80% 70%, rgba(255,107,0,.08) 0%, rgba(0,0,0,0) 55%);
 }
 
-/* grid lines: a hair brighter and slightly larger cells */
-.login-grid::before{
-  background:
-    linear-gradient(transparent 39px, rgba(255,255,255,.065) 40px),
-    linear-gradient(90deg, transparent 39px, rgba(255,255,255,.065) 40px);
-  background-size: 40px 40px;
-}
-
-/* glass: more frost + edge definition + inner glow lip */
+/* Glass cards */
 .glass-shell{
-  background: rgba(255,255,255,.07);
-  border: 1px solid rgba(255,255,255,.16);
-  box-shadow:
-    0 0 42px rgba(255,107,0,.28),         /* orange bloom */
-    inset 0 1px 0 rgba(255,255,255,.12);  /* soft inner lip */
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.12);
+  backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  border-radius:16px; box-shadow:0 0 36px rgba(255,107,0,.22);
 }
 
-/* inputs: darker well + clearer focus */
-.glass-shell input{
-  background: rgba(20,20,22,.85);
-  border-color: rgba(255,255,255,.18);
-}
-.glass-shell input:focus{
-  border-color: rgba(255,107,0,.55);
-  box-shadow: 0 0 0 3px rgba(255,107,0,.25);
-}
+/* Brand chip */
+.brand-chip{display:flex;align-items:center;gap:.6rem;padding:.45rem .7rem;
+  border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)}
 
-/* CTA button: stronger gradient + lift on hover */
-.glass-shell button{
-  background: linear-gradient(180deg,#FF8A26 0%,#FF6B00 100%);
-  box-shadow: 0 8px 24px rgba(255,107,0,.28);
-}
-.glass-shell button:hover{
-  filter: brightness(1.05);
-  transform: translateY(-1px);
-}
+/* Optional texture overlay for the left hero. Put your image at assets/bg/ai-mesh.jpg */
+.hero-texture{position:absolute;inset:0;border-radius:inherit;
+  background:url("assets/bg/ai-mesh.jpg") center/cover no-repeat;
+  mix-blend:screen;opacity:.22;filter:blur(.5px);pointer-events:none}
 
-/* brand chip polish */
-.brand-chip{
-  box-shadow: 0 6px 18px rgba(0,0,0,.35);
-  border-radius: 12px;
-}
-
-/* --- StrataMind: login tweaks (safe, additive) --- */
-@media (min-width: 768px){
-  /* wider form but still balanced with hero */
-  #loginForm { max-width: 520px; margin-left:auto; margin-right:auto; }
-}
-
-/* ensure the split grid vertically centers both columns */
-.login-hero-center { min-height: calc(100vh - 120px); display:grid; align-items:center; }
-
-/* soften and even out the glow behind the login card */
-.login-card-glow { box-shadow: 0 0 36px rgba(255,107,0,.22); }
-
-/* --- StrataMind login/register layout (split screen) --- */
-.login-shell{
-  display:grid;
-  grid-template-columns: 1.15fr 0.85fr; /* ~left 58% / right 42% */
-  align-items:center;
-  gap:3.5rem;
-}
-@media (max-width: 960px){
-  .login-shell{ grid-template-columns: 1fr; gap:2rem; }
-}
-
-/* Card + inputs + button (glassmorphism) */
-.form-card{
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(255,255,255,.12);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-radius: 16px;
-  padding: 1.25rem;
-  box-shadow: 0 0 36px rgba(255,107,0,.22);
-}
-.input{
-  width: 100%;
-  height: 44px;
-  border-radius: 10px;
-  background: #1a1a1a;
-  border: 1px solid rgba(255,255,255,.14);
-  color: #fff;
-  padding: 0 14px;
-  outline: none;
-}
-.input::placeholder{ color: rgba(255,255,255,.55); }
-.input:focus{
-  border-color: rgba(255,107,0,.55);
-  box-shadow: 0 0 0 2px rgba(255,107,0,.35);
-}
-
-/* Orange gradient button */
-.btn-orange{
-  height: 44px;
-  border-radius: 10px;
-  border: 0;
-  font-weight: 600;
-  color: #fff;
-  background: linear-gradient(180deg,#FF7A1A 0%, #FF6B00 100%);
-  box-shadow: 0 6px 18px rgba(255,107,0,.35), inset 0 0 0 1px rgba(255,255,255,.05);
-}
-.btn-orange:hover{ filter: brightness(1.06); }
+/* Small helper to hide/show password eye */
+.eye-btn{cursor:pointer;user-select:none}
