@@ -9,77 +9,79 @@
   <link rel="stylesheet" href="assets/overrides.css">
 </head>
 <body class="antialiased text-white">
+  <!-- orange mesh background (same identity as login) -->
+  <script src="assets/bg/mesh-home.js" defer></script>
+
   <main class="page min-h-screen">
     <!-- Header -->
-    <header class="flex items-center justify-between px-6 md:px-10 py-6">
-      <div class="text-xl md:text-2xl font-semibold tracking-tight text-white/90">StrataMind</div>
-      <div class="flex items-center gap-3">
-        <a href="#get-started" class="px-4 py-2 rounded-full bg-brand-500 hover:bg-brand-400 text-white text-sm">Get Started</a>
-        <a href="#learn-more" class="px-4 py-2 rounded-full bg-white/10 backdrop-blur border border-white/15 hover:bg-white/15 text-white/90 text-sm">Learn More</a>
+    <header class="site-header">
+      <div class="container">
+        <div class="brand">StrataMind</div>
+        <nav class="actions">
+          <a href="#get-started" class="btn-pill btn-primary">Get Started</a>
+          <a href="#learn-more" class="btn-pill btn-glass">Learn More</a>
+        </nav>
       </div>
     </header>
 
     <!-- Hero -->
-    <section class="px-6 md:px-10 pt-4 md:pt-10 pb-10 grid md:grid-cols-2 gap-8 items-center">
-      <div>
-        <h1 class="text-4xl md:text-6xl font-bold leading-tight">
-          Reimagining IT Support<br><span class="text-brand-400">with AI</span>
-        </h1>
-        <p class="mt-3 text-white/70 max-w-xl">
-          Fast, reliable, and intelligent IT helpdesk for modern enterprises.
-        </p>
-      </div>
-      <div class="glass p-6 md:p-8 rounded-2xl flex items-center justify-center">
-        <img src="assets/illustrations/hero-abstract.svg" alt="Tech abstract" class="max-w-full opacity-80"/>
-      </div>
-    </section>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <h1>Reimagining IT Support <span class="accent">with AI</span></h1>
+          <p>Fast, reliable, and intelligent IT helpdesk for modern enterprises.</p>
+        </div>
 
-    <!-- Features (3 cards side-by-side) -->
-    <section id="features" class="px-6 md:px-10 pb-12">
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="glass rounded-2xl p-6 hover:-translate-y-0.5 transition">
-          <div class="text-brand-400 mb-2" aria-hidden="true">⚡</div>
-          <h3 class="font-semibold text-lg">AI Helpdesk</h3>
-          <p class="text-white/70 text-sm">Resolve issues instantly with AI-powered support.</p>
-        </div>
-        <div class="glass rounded-2xl p-6 hover:-translate-y-0.5 transition">
-          <div class="text-brand-400 mb-2" aria-hidden="true">🗂️</div>
-          <h3 class="font-semibold text-lg">Smart Ticketing</h3>
-          <p class="text-white/70 text-sm">Seamless tracking and intelligent routing.</p>
-        </div>
-        <div class="glass rounded-2xl p-6 hover:-translate-y-0.5 transition">
-          <div class="text-brand-400 mb-2" aria-hidden="true">📚</div>
-          <h3 class="font-semibold text-lg">Knowledge Hub</h3>
-          <p class="text-white/70 text-sm">Centralized knowledge base powered by AI.</p>
+        <div class="hero-visual glass">
+          <img src="assets/illustrations/hero-abstract.svg" alt="Tech abstract" class="hero-svg"/>
         </div>
       </div>
     </section>
 
-    <!-- CTA Banner -->
-    <section class="px-6 md:px-10 pb-16">
-      <div class="glass rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-4">
-        <h4 class="text-xl md:text-2xl font-semibold">Ready to transform your IT support?</h4>
-        <a href="#get-started" class="px-5 py-3 rounded-full bg-brand-500 hover:bg-brand-400 text-white">Start Free Trial</a>
+    <!-- Features -->
+    <section class="features">
+      <div class="container features-grid">
+        <article class="feature glass">
+          <div class="feature-icon" aria-hidden="true">⚡</div>
+          <h3>AI Helpdesk</h3>
+          <p>Resolve issues instantly with AI-powered support.</p>
+        </article>
+        <article class="feature glass">
+          <div class="feature-icon" aria-hidden="true">🗂️</div>
+          <h3>Smart Ticketing</h3>
+          <p>Seamless tracking and intelligent routing.</p>
+        </article>
+        <article class="feature glass">
+          <div class="feature-icon" aria-hidden="true">📚</div>
+          <h3>Knowledge Hub</h3>
+          <p>Centralized knowledge base powered by AI.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+      <div class="container glass cta-inner">
+        <h4>Ready to transform your IT support?</h4>
+        <a href="#get-started" class="btn-pill btn-primary">Start Free Trial</a>
       </div>
     </section>
 
     <!-- Footer -->
-    <footer class="px-6 md:px-10 pb-10 flex items-center justify-between text-white/60 text-sm">
-      <div>© StrataMind</div>
-      <nav class="flex gap-4">
-        <a href="#" class="hover:text-white/90">About</a>
-        <a href="#" class="hover:text-white/90">Contact</a>
-        <a href="#" class="hover:text-white/90">Privacy</a>
-        <a href="#" class="hover:text-white/90">Careers</a>
-      </nav>
+    <footer class="site-footer">
+      <div class="container footer-bar">
+        <div class="tiny">© StrataMind</div>
+        <nav class="footer-links tiny">
+          <a href="#">About</a>
+          <a href="#">Contact</a>
+          <a href="#">Privacy</a>
+          <a href="#">Careers</a>
+        </nav>
+      </div>
     </footer>
 
-    <!-- Bottom-right watermark -->
-    <img src="brand/stratamind-monogram.svg" alt="SM"
-         style="position:fixed; right:18px; bottom:18px; width:28px; height:28px; opacity:.55; filter:drop-shadow(0 0 14px rgba(255,107,0,.25)); z-index:3;">
+    <!-- Watermark -->
+    <img src="brand/stratamind-monogram.svg" alt="SM" class="wm-sm">
   </main>
-
-  <!-- Light orange network mesh for homepage -->
-  <script src="assets/bg/mesh-home.js" defer></script>
 </body>
 </html>
