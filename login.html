@@ -136,7 +136,33 @@
 </script>
   <script src="assets/bg/mesh-inline.js" defer></script>
   <script src="assets/bg/mesh-net.js" defer></script>
-<script>document.getElementById("loginForm")</body></body>document.getElementById("loginForm").addEventListener("submit",function(e){e.preventDefault();window.location.href="home.html"});</script>
+<script>document.getElementById("loginForm")
+<script id="login-redirect-inline">
+// LOGIN_REDIRECT_START
+document.addEventListener('DOMContentLoaded',()=>{
+  const f=document.getElementById('loginForm');
+  if(!f) return;
+  f.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    window.location.href='home.html';
+  });
+});
+// LOGIN_REDIRECT_END
+</script>
+</body></body>document.getElementById("loginForm").addEventListener("submit",function(e){e.preventDefault();window.location.href="home.html"});</script>
 <!-- DEMO_REDIRECT_TO_HOME -->
+
+<script id="login-redirect-inline">
+// LOGIN_REDIRECT_START
+document.addEventListener('DOMContentLoaded',()=>{
+  const f=document.getElementById('loginForm');
+  if(!f) return;
+  f.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    window.location.href='home.html';
+  });
+});
+// LOGIN_REDIRECT_END
+</script>
 </body>
 </html>
