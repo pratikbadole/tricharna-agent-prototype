@@ -87,3 +87,77 @@ body{position:static !important; z-index:auto !important;}
 
 /* remove any dev outlines */
 *{outline:0 !important;}
+
+/* === Homepage polish === */
+.hero-wrap{
+  min-height: 80vh;
+  display:grid;
+  place-items:center;
+  padding:6rem 1.5rem 4rem;
+}
+.hero-inner{
+  max-width:1200px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap:3rem;
+}
+@media (max-width: 900px){
+  .hero-inner{grid-template-columns:1fr; gap:2rem;}
+}
+.feature-grid{
+  display:grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap:1rem;
+}
+@media (max-width: 900px){
+  .feature-grid{grid-template-columns:1fr;}
+}
+.card{
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 1.2rem 1.1rem;
+  transition: transform .2s ease, box-shadow .2s ease;
+  box-shadow: 0 0 26px rgba(255,107,0,.08);
+}
+.card:hover{ transform: translateY(-3px); box-shadow: 0 0 36px rgba(255,107,0,.16); }
+.card h3{ margin:0 0 .35rem; font-weight:600; color:#fff; }
+.card p{ margin:0; color:rgba(255,255,255,.75); }
+.btn-row{ display:flex; gap:.75rem; flex-wrap:wrap; }
+.btn{ padding:.75rem 1rem; border-radius:.75rem; font-weight:600; }
+.btn--primary{ background:#FF6B00; color:white; border:0; }
+.btn--primary:hover{ filter:brightness(1.05); }
+.btn--glass{
+  background: rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.18);
+  color:#fff;
+}
+.demo-panel{
+  margin:3rem auto 2rem; max-width:1200px;
+  height:420px; border-radius:18px;
+  background: rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.12);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 36px rgba(255,107,0,.08);
+  overflow:hidden;
+  display:grid; place-items:center; color:#aaa;
+}
+.why-grid{
+  max-width:1200px; margin:2rem auto; display:grid; gap:2rem;
+  grid-template-columns: 1.1fr 1fr;
+}
+@media (max-width:900px){ .why-grid{grid-template-columns:1fr;} }
+.cta-band{
+  max-width:1200px; margin:3rem auto; text-align:center;
+  padding:1.5rem; border-radius:16px;
+  background: linear-gradient(90deg, rgba(255,107,0,.15), rgba(255,107,0,.05));
+  border:1px solid rgba(255,255,255,.12);
+}
+.footer{
+  max-width:1200px; margin:2rem auto 3rem; opacity:.8;
+  display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap;
+  color:rgba(255,255,255,.75);
+}
