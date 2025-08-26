@@ -84,3 +84,6 @@ body{position:static !important; z-index:auto !important;}
 #bg-mesh{display:none !important;}
 /* Keep app content above */
 .page,.stage,.login-grid{position:relative; z-index:1;}
+
+/* remove any dev outlines */
+*{outline:0 !important;}
