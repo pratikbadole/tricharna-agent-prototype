@@ -483,3 +483,9 @@ body::before, .page::before { z-index:-2 !important; } /* grid/texture stays bel
 
 /* HOME_BASE_BG */
 body{background:#0b0b0f;}
+
+/* HOMEPAGE MESH — do not remove */
+#bg-net{position:fixed;inset:0;z-index:0;pointer-events:none}
+.page{position:relative;z-index:1}
+body{background:#0b0b0f}
+body::before,.page::before{z-index:-2 !important}
