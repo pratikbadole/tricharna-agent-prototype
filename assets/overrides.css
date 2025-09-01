@@ -475,3 +475,11 @@ body::before, .page::before {
 .page { position: relative; z-index: 1; }
 /* Keep any pseudo-gradients *below* the canvas */
 body::before, .page::before { z-index: -2 !important; }
+
+/* HOME_MESH_VIS */
+#bg-net, #bg-mesh { position:fixed; inset:0; z-index:0; pointer-events:none; }
+.page { position:relative; z-index:1 !important; background: transparent !important; }
+body::before, .page::before { z-index:-2 !important; } /* grid/texture stays below canvas */
+
+/* HOME_BASE_BG */
+body{background:#0b0b0f;}
