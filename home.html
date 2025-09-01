@@ -100,3 +100,34 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 </script>
+<!-- MAGENTA_TEST -->
+<script>
+(() => {
+  const c = document.getElementById('bg-net') || (() => {
+    const k = document.createElement('canvas');
+    k.id = 'bg-net';
+    k.style.position = 'fixed';
+    k.style.inset = '0';
+    k.style.pointerEvents = 'none';
+    k.style.zIndex = '0';
+    document.body.prepend(k);
+    return k;
+  })();
+
+  const DPR = Math.min(window.devicePixelRatio || 1, 2);
+  function size() {
+    const w = Math.max(document.documentElement.clientWidth,  window.innerWidth  || 0);
+    const h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+    c.width  = Math.round(w * DPR);
+    c.height = Math.round(h * DPR);
+  }
+  size(); addEventListener('resize', size);
+
+  const ctx = c.getContext('2d');
+  ctx.setTransform(DPR,0,0,DPR,0,0);
+  ctx.globalAlpha = 0.12;
+  ctx.fillStyle = 'magenta';
+  ctx.fillRect(0, 0, c.width, c.height);
+  console.log('MAGENTA_TEST painted', c.width, c.height);
+})();
+</script>
