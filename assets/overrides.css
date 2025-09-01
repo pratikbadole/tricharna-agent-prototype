@@ -403,3 +403,27 @@ body{position:static !important; z-index:auto !important;}
 #bg-net{position:fixed;inset:0;z-index:0;pointer-events:none}
 .page{position:relative;z-index:1}
 body::before,.page::before{z-index:-1 !important}
+/* === HOME_MESH: layering + visibility === */
+{
+  position: fixed;
+  inset: 0;
+  z-index: 0;           /* canvas baseline */
+  pointer-events: none;
+}
+
+/* content above canvas */
+.page, .stage, .login-grid {
+  position: relative;
+  z-index: 1;
+}
+
+/* push any pseudo backgrounds behind the canvas */
+body::before, .page::before {
+  z-index: -2 !important;
+}
+
+/* gentle lift for home mesh contrast only (exaggerates subtle lines) */
+html[data-page="home"] .mesh--boost {
+  opacity: 0.9;
+  filter: saturate(1.1) brightness(1.08);
+}

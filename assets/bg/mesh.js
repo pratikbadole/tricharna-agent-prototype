@@ -3,7 +3,9 @@
   const c = document.createElement('canvas');
   c.id = 'bg-mesh';
   document.body.prepend(c);
-  const ctx = c.getContext('2d');
+  
+c.className = "mesh--boost";
+const ctx = c.getContext('2d');
 
   let W = 0, H = 0, pts = [];
 
