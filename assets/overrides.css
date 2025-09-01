@@ -521,3 +521,42 @@ body, .page { filter:none !important; mix-blend-mode:normal !important; }
 /* tighten the cards a touch */
 #features .glass{ box-shadow: 0 0 0 1px rgba(255,255,255,.06) inset, 0 8px 32px rgba(0,0,0,.35); }
 #features .glass:hover{ transform: translateY(-2px); transition: transform .18s ease; }
+
+/* CONTAINER_CENTER */
+.page > header,
+.page > section,
+.page > footer {
+  width: min(1200px, calc(100% - 48px));  /* 1200px max, 24px gutters */
+  margin-left: auto;
+  margin-right: auto;
+}
+.page > header { padding-top: 18px; padding-bottom: 18px; }
+
+/* HERO as 2-col grid: target the first section after header */
+.page header + section {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;   /* copy-heavy left, visual right */
+  align-items: center;
+  gap: 2rem;
+  padding-top: .5rem;
+  padding-bottom: 1.25rem;
+}
+
+/* Right hero glass panel sizing + image treatment */
+.page header + section .glass {
+  height: clamp(240px, 34vh, 340px);
+  display: flex; align-items: center; justify-content: center;
+}
+.page header + section .glass img {
+  max-width: 90%;
+  opacity: .85;
+}
+
+/* Features block spacing */
+#features { padding-top: 8px; padding-bottom: 24px; }
+
+/* CTA panel: keep it compact and centered */
+.page section:has(a[href*="Start Free Trial"]),
+.page section:has(a[href*="Start%20Free%20Trial"]) {
+  width: min(900px, calc(100% - 48px));
+}
