@@ -657,3 +657,46 @@ header a[href="#learn-more"]:focus-visible,
     padding: 0 20px;
   }
 }
+
+/* CTA_BUTTON_FIX */
+section:has(a[href="#get-started"]) a[href="#get-started"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 46px;
+  min-width: 160px;
+  padding: 0 22px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: .01em;
+  line-height: 1;
+  background: var(--brand, #ff6b00);
+  color: #fff;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.06) inset,
+    0 8px 20px rgba(0,0,0,.35),
+    0 0 26px rgba(255,107,0,.25);
+  transition: transform .15s ease, background .2s ease, box-shadow .2s ease;
+}
+
+section:has(a[href="#get-started"]) a[href="#get-started"]:hover {
+  background: #ff7e24;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.08) inset,
+    0 10px 26px rgba(0,0,0,.38),
+    0 0 36px rgba(255,107,0,.32);
+  transform: translateY(-1px);
+}
+
+section:has(a[href="#get-started"]) a[href="#get-started"]:active {
+  background: #e65f00;
+  transform: translateY(0);
+}
+
+section:has(a[href="#get-started"]) a[href="#get-started"]:focus-visible {
+  box-shadow:
+    0 0 0 2px #000 inset,
+    0 0 0 3px rgba(255,255,255,.75) inset,
+    0 0 0 2px rgba(255,107,0,.55);
+}
