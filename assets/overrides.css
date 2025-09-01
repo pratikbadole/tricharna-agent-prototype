@@ -447,5 +447,4 @@ body::before, .page::before {
 #bg-net{width:100vw;height:100vh;position:fixed;inset:0;z-index:0;pointer-events:none}
 .page{position:relative;z-index:1}
 
-/* TEMP_FORCE_TOP */
 #bg-net{z-index:3 !important}
