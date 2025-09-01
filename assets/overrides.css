@@ -427,3 +427,18 @@ html[data-page="home"] .mesh--boost {
   opacity: 0.9;
   filter: saturate(1.1) brightness(1.08);
 }
+
+/* === HOME_MESH_FIX === */
+#bg-net {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.page {
+  position: relative;
+  z-index: 1 !important;
+}
+body::before, .page::before {
+  z-index: -2 !important;
+}
