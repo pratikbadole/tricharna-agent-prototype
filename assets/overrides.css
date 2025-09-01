@@ -460,3 +460,18 @@ body::before, .page::before {
   position: relative;
   z-index: 1 !important; /* content above */
 }
+
+/* === HOME_MESH_UNIFY === */
+#bg-mesh, #bg-net {
+  position: fixed;
+  inset: 0;
+  width: 100vw;   /* in case script didn't set CSS size */
+  height: 100vh;
+  z-index: 0;     /* below content */
+  pointer-events: none;
+  display: block;
+}
+/* Content above the canvas */
+.page { position: relative; z-index: 1; }
+/* Keep any pseudo-gradients *below* the canvas */
+body::before, .page::before { z-index: -2 !important; }
