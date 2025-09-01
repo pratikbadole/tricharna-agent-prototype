@@ -7,121 +7,99 @@
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="assets/tw.css">
   <link rel="stylesheet" href="assets/overrides.css?v=home1">
-  <!-- HOME_MESH_FIX -->
+
+  <!-- Keep canvas behind content -->
   <style>
-    #bg-net{position:fixed;inset:0;z-index:0;pointer-events:none}
-    .page{position:relative;z-index:1}
-    body::before,.page::before{z-index:-2 !important}
+    #bg-net { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+    .page   { position: relative; z-index: 1; }
+    body::before, .page::before { z-index: -2 !important; }
   </style>
 </head>
-<body class="page antialiased text-white page">
+<body class="antialiased text-white page">
+  <!-- Background mesh canvas -->
   <canvas id="bg-net"></canvas>
-  <!-- orange mesh background (same identity as login) -->
 
-  <main style="position:relative;z-index:1" class="page min-h-screen">
+  <!-- Fallback: ensure canvas exists on slow DOMs -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (!document.getElementById('bg-net')) {
+        const c = document.createElement('canvas');
+        c.id = 'bg-net';
+        document.body.prepend(c);
+      }
+    });
+  </script>
+
+  <main class="page min-h-screen">
     <!-- Header -->
     <header class="flex items-center justify-between px-6 md:px-10 py-6">
-  <div class="text-2xl md:text-3xl font-semibold tracking-tight text-white/90">StrataMind</div>
-  <nav class="flex items-center gap-3">
-    <a href="login.html" class="px-4 py-2 rounded-full bg-brand-500 hover:bg-brand-400 text-white text-sm transition">Get Started</a>
-    <a href="#features" class="px-4 py-2 rounded-full bg-white/10 backdrop-blur border border-white/15 hover:bg-white/15 text-white/90 text-sm transition">Learn More</a>
-  </nav>
-</header>
+      <div class="text-2xl md:text-3xl font-semibold tracking-tight text-white/90">StrataMind</div>
+      <nav class="flex items-center gap-3">
+        <a href="login.html" class="px-4 py-2 rounded-full bg-brand-500 hover:bg-brand-400 text-white text-sm transition">Get Started</a>
+        <a href="#features" class="px-4 py-2 rounded-full bg-white/10 backdrop-blur border border-white/15 hover:bg-white/15 text-white/90 text-sm transition">Learn More</a>
+      </nav>
+    </header>
 
+    <!-- Hero -->
     <section class="px-6 md:px-10 pt-4 md:pt-10 pb-10 grid md:grid-cols-2 gap-8 items-center">
-  <div>
-    <h1 class="text-4xl md:text-6xl font-bold leading-tight">
-      Reimagining IT Support<br><span class="text-brand-400">with AI</span>
-    </h1>
-    <p class="mt-3 text-white/70 max-w-xl">
-      Fast, reliable, and intelligent IT helpdesk for modern enterprises.
-    </p>
-  </div>
-  <div class="glass p-6 md:p-8 rounded-2xl flex items-center justify-center">
-    <img src="assets/illustrations/hero-abstract.svg" alt="Tech abstract" class="max-w-full opacity-80"/>
-  </div>
-</section>
-<section id="features" class="px-6 md:px-10 pb-12">
-  <div class="grid md:grid-cols-3 gap-6">
-    <div class="glass rounded-2xl p-6 hover:-translate-y-0.5 transition">
-      <div class="text-brand-400 mb-2">⚡</div>
-      <h3 class="font-semibold text-lg">AI Helpdesk</h3>
-      <p class="text-white/70 text-sm">Resolve issues instantly with AI-powered support.</p>
-    </div>
-    <div class="glass rounded-2xl p-6 hover:-translate-y-0.5 transition">
-      <div class="text-brand-400 mb-2">🗂️</div>
-      <h3 class="font-semibold text-lg">Smart Ticketing</h3>
-      <p class="text-white/70 text-sm">Seamless tracking and intelligent routing.</p>
-    </div>
-    <div class="glass rounded-2xl p-6 hover:-translate-y-0.5 transition">
-      <div class="text-brand-400 mb-2">📚</div>
-      <h3 class="font-semibold text-lg">Knowledge Hub</h3>
-      <p class="text-white/70 text-sm">Centralized knowledge base powered by AI.</p>
-    </div>
-  </div>
-</section>
-
-    <!-- Features -->
-    <section class="features">
-      <div class="container features-grid">
-        <article class="feature glass">
-          <div class="feature-icon" aria-hidden="true">⚡</div>
-          <h3>AI Helpdesk</h3>
-          <p>Resolve issues instantly with AI-powered support.</p>
-        </article>
-        <article class="feature glass">
-          <div class="feature-icon" aria-hidden="true">🗂️</div>
-          <h3>Smart Ticketing</h3>
-          <p>Seamless tracking and intelligent routing.</p>
-        </article>
-        <article class="feature glass">
-          <div class="feature-icon" aria-hidden="true">📚</div>
-          <h3>Knowledge Hub</h3>
-          <p>Centralized knowledge base powered by AI.</p>
-        </article>
+      <div>
+        <h1 class="text-4xl md:text-6xl font-bold leading-tight">
+          Reimagining IT Support<br><span class="text-brand-400">with AI</span>
+        </h1>
+        <p class="mt-3 text-white/70 max-w-xl">
+          Fast, reliable, and intelligent IT helpdesk for modern enterprises.
+        </p>
+      </div>
+      <div class="glass p-6 md:p-8 rounded-2xl flex items-center justify-center">
+        <img src="assets/illustrations/hero-abstract.svg" alt="Tech abstract" class="max-w-full opacity-80" />
       </div>
     </section>
 
-    <!-- CTA -->
-    <section class="cta">
-      <div class="container glass cta-inner">
-        <h4>Ready to transform your IT support?</h4>
-        <a href="#get-started" class="btn-pill btn-primary">Start Free Trial</a>
+    <!-- Features (single, side-by-side) -->
+    <section id="features" class="px-6 md:px-10 pb-12">
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="glass rounded-2xl p-6 hover:-translate-y-0.5 transition">
+          <div class="text-brand-400 mb-2">⚡</div>
+          <h3 class="font-semibold text-lg">AI Helpdesk</h3>
+          <p class="text-white/70 text-sm">Resolve issues instantly with AI-powered support.</p>
+        </div>
+        <div class="glass rounded-2xl p-6 hover:-translate-y-0.5 transition">
+          <div class="text-brand-400 mb-2">🗂️</div>
+          <h3 class="font-semibold text-lg">Smart Ticketing</h3>
+          <p class="text-white/70 text-sm">Seamless tracking and intelligent routing.</p>
+        </div>
+        <div class="glass rounded-2xl p-6 hover:-translate-y-0.5 transition">
+          <div class="text-brand-400 mb-2">📚</div>
+          <h3 class="font-semibold text-lg">Knowledge Hub</h3>
+          <p class="text-white/70 text-sm">Centralized knowledge base powered by AI.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Banner -->
+    <section class="px-6 md:px-10 pb-16">
+      <div class="glass rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <h4 class="text-xl md:text-2xl font-semibold">Ready to transform your IT support?</h4>
+        <a href="#get-started" class="px-5 py-3 rounded-full bg-brand-500 hover:bg-brand-400 text-white">Start Free Trial</a>
       </div>
     </section>
 
     <!-- Footer -->
-    <footer class="site-footer">
-      <div class="container footer-bar">
-        <div class="tiny">© StrataMind</div>
-        <nav class="footer-links tiny">
-          <a href="#">About</a>
-          <a href="#">Contact</a>
-          <a href="#">Privacy</a>
-          <a href="#">Careers</a>
-        </nav>
-      </div>
+    <footer class="px-6 md:px-10 pb-10 flex items-center justify-between text-white/60 text-sm">
+      <div>© StrataMind</div>
+      <nav class="flex gap-4">
+        <a href="#" class="hover:text-white/90">About</a>
+        <a href="#" class="hover:text-white/90">Contact</a>
+        <a href="#" class="hover:text-white/90">Privacy</a>
+        <a href="#" class="hover:text-white/90">Careers</a>
+      </nav>
     </footer>
 
-    <!-- Watermark -->
-    <img src="brand/stratamind-monogram.svg" alt="SM" class="wm-sm">
+    <!-- Bottom-right watermark (if file exists) -->
+    <img src="brand/stratamind-monogram.svg" alt="SM" style="position:fixed; right:18px; bottom:18px; width:28px; height:28px; opacity:.55; filter:drop-shadow(0 0 14px rgba(255,107,0,.25)); z-index:3;" />
   </main>
-  <script src="assets/bg/mesh-home.js?v=4" defer></script>
+
+  <!-- Mesh background (animated) -->
+  <script src="assets/bg/mesh-home.js?v=5" defer></script>
 </body>
 </html>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  if (!document.getElementById('bg-net')) {
-    var c = document.createElement('canvas');
-    c.id = 'bg-net';
-    document.body.prepend(c);
-  }
-});
-</script>
-  size(); addEventListener('resize', size);
-
-  const ctx = c.getContext('2d');
-  ctx.setTransform(DPR,0,0,DPR,0,0);
-  ctx.globalAlpha = 0.12;
-  ctx.fillStyle = 'magenta';
-  ctx.fillRect(0, 0, c.width, c.height);
