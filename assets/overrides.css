@@ -731,3 +731,7 @@ section:has(a[href="#get-started"]) a[href="#get-started"]:focus-visible {
 @media (min-width:800px){
   #footer-cta .cta-inner{ flex-direction:row; }  /* ensure row layout in footer */
 }
+
+/* CTA_IN_FOOTER */
+#footer-cta{margin-top:14px}
+#footer-cta .glass{border-radius:18px}
