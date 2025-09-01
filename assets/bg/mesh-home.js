@@ -1,73 +1,63 @@
 (() => {
-  // Reuse #bg-net if present, otherwise create it
-  let c = document.getElementById('bg-net');
-  if (!c) {
-    c = document.createElement('canvas');
-    c.id = 'bg-net';
-    document.body.prepend(c);
-  }
-  Object.assign(c.style, {
-    position: 'fixed',
-    inset: '0',
-    zIndex: '0',
-    pointerEvents: 'none'
-  });
+  const c = document.getElementById('bg-net') || document.getElementById('bg-mesh');
+  if (!c) { console.warn('MESH_HOME: no canvas'); return; }
 
+  const DPR = Math.max(1, Math.floor(window.devicePixelRatio || 1));
   const ctx = c.getContext('2d');
-  const DPR = Math.max(1, Math.floor(devicePixelRatio || 1));
-  let W = 0, H = 0;
 
-  function resize() {
-    W = window.innerWidth;
-    H = window.innerHeight;
-    c.width = W * DPR;
-    c.height = H * DPR;
-    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-    build();
+  function size() {
+    const W = window.innerWidth, H = window.innerHeight;
+    c.width = W * DPR; c.height = H * DPR;
+    c.style.position = 'fixed';
+    c.style.inset = '0';
+    c.style.zIndex = '0';
+    c.style.pointerEvents = 'none';
+    ctx.setTransform(DPR,0,0,DPR,0,0);
   }
 
-  // Build a loose point field
-  const PTS = [];
+  // Visual palette (orange network, subtle)
+  const LINK = 'rgba(255,130,40,0.08)';
+  const NODE = 'rgba(255,190,120,0.28)';
+
+  let pts = [], W = 0, H = 0;
+
   function build() {
-    PTS.length = 0;
-    const cols = Math.ceil(W / 90);
-    const rows = Math.ceil(H / 90);
+    W = window.innerWidth; H = window.innerHeight;
+    pts = [];
+    const cols = Math.ceil(W / 54), rows = Math.ceil(H / 54);
     for (let y = 0; y <= rows; y++) {
       for (let x = 0; x <= cols; x++) {
-        const jitterX = (Math.random() - 0.5) * 40;
-        const jitterY = (Math.random() - 0.5) * 40;
-        PTS.push({
-          x: x * 90 + jitterX,
-          y: y * 90 + jitterY,
-          ph: Math.random() * Math.PI * 2
-        });
+        const jx = (Math.random()-0.5)*14, jy = (Math.random()-0.5)*14;
+        pts.push({ x: x*54 + jx, y: y*54 + jy, ph: Math.random()*Math.PI*2 });
       }
     }
   }
 
-  function draw(t) {
-    const time = (t || 0) / 1000;
+  function draw(t=0) {
+    const time = t/1000;
 
-    // Clear and soft vignette
-    ctx.clearRect(0, 0, W, H);
-    const g = ctx.createRadialGradient(W*0.3, H*0.45, 0, W*0.3, H*0.45, Math.max(W,H)*0.7);
-    g.addColorStop(0, 'rgba(255,107,0,0.10)');
+    // wipe
+    ctx.clearRect(0,0,c.width,c.height);
+
+    // radial brand bloom (very soft)
+    const g = ctx.createRadialGradient(W*0.30, H*0.42, 0, W*0.30, H*0.42, 620);
+    g.addColorStop(0, 'rgba(255,120,20,0.09)');
     g.addColorStop(1, 'rgba(0,0,0,0)');
     ctx.fillStyle = g;
-    ctx.fillRect(0, 0, W, H);
+    ctx.fillRect(0,0,W,H);
 
-    // Orange network lines
-    const TH = 140; // link distance
+    // links
+    const TH = 95; // link distance
     ctx.lineWidth = 1;
-    for (let i = 0; i < PTS.length; i++) {
-      const p = PTS[i];
-      for (let j = i + 1; j < PTS.length; j++) {
-        const q = PTS[j];
+    for (let i=0;i<pts.length;i++){
+      const p = pts[i];
+      for (let j=i+1;j<pts.length;j++){
+        const q = pts[j];
         const dx = p.x - q.x, dy = p.y - q.y;
-        const d = Math.hypot(dx, dy);
+        const d = Math.hypot(dx,dy);
         if (d < TH) {
-          ctx.globalAlpha = 0.13 * (1 - d / TH);
-          ctx.strokeStyle = 'rgba(255,107,0,0.65)';
+          ctx.globalAlpha = 0.12 * (1 - d/TH);
+          ctx.strokeStyle = LINK;
           ctx.beginPath();
           ctx.moveTo(p.x, p.y);
           ctx.lineTo(q.x, q.y);
@@ -76,23 +66,25 @@
       }
     }
 
-    // Nodes (subtle)
-    ctx.globalAlpha = 0.28;
-    ctx.fillStyle = 'rgba(255,255,255,0.35)';
-    for (const p of PTS) {
-      const r = 1.1 + 0.6 * Math.sin(time * 1.7 + p.ph);
+    // nodes (gentle twinkle)
+    ctx.globalAlpha = 1;
+    for (const p of pts) {
+      const r = 1.0 + 0.7 * Math.sin(time*1.6 + p.ph);
+      ctx.fillStyle = NODE;
       ctx.beginPath();
-      ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+      ctx.arc(p.x, p.y, r, 0, Math.PI*2);
       ctx.fill();
     }
 
     requestAnimationFrame(draw);
   }
 
-  // Safety console log so you can verify it runs
-  console.log('MESH_HOME: init', { DPR });
+  function onResize(){
+    size(); build();
+  }
 
-  window.addEventListener('resize', resize);
-  resize();
+  console.log('MESH_HOME: init');
+  onResize();
   requestAnimationFrame(draw);
+  addEventListener('resize', onResize);
 })();
