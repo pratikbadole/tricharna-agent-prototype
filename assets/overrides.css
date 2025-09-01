@@ -724,12 +724,3 @@ section:has(a[href="#get-started"]) a[href="#get-started"]:focus-visible {
 @media (min-width:768px){
   .page{padding-top:1.25rem;}             /* ~28px on desktop */
 }
-
-/* CTA_PRIMARY */
-.cta-primary{
-  padding:.75rem 1.25rem; border-radius:9999px;
-  background:#ff6b00; color:#fff; font-weight:600;
-  box-shadow:0 8px 32px rgba(255,107,0,.25), 0 0 0 1px rgba(255,255,255,.06) inset;
-  transition:transform .16s ease, box-shadow .2s ease, background .2s ease;
-}
-.cta-primary:hover{ transform:translateY(-1px); background:#ff7f26; }
