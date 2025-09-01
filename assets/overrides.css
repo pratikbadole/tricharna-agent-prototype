@@ -703,9 +703,13 @@ section:has(a[href="#get-started"]) a[href="#get-started"]:focus-visible {
 
 /* PAGE_OFFSET */
 .page {
-  padding-top: 2.5rem; /* push everything down ~40px */
+  padding-top: 1.25rem; /* ~20px for mobile */
 }
 @media (min-width: 768px) {
+  .page {
+    padding-top: 2.5rem; /* ~40px for desktop */
+  }
+}@media (min-width: 768px) {
   .page {
     padding-top: 4rem; /* ~64px for desktop */
   }
