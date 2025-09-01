@@ -448,3 +448,15 @@ body::before, .page::before {
 .page{position:relative;z-index:1}
 
 #bg-net{z-index:3 !important}
+
+/* HOME_MESH_FINAL */
+#bg-net {
+  position: fixed;
+  inset: 0;
+  z-index: 0 !important; /* back layer */
+  pointer-events: none;
+}
+.page {
+  position: relative;
+  z-index: 1 !important; /* content above */
+}
