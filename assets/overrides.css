@@ -560,3 +560,100 @@ body, .page { filter:none !important; mix-blend-mode:normal !important; }
 .page section:has(a[href*="Start%20Free%20Trial"]) {
   width: min(900px, calc(100% - 48px));
 }
+
+/* BUTTON_POLISH
+   Targets:
+   - Header: Get Started (primary) & Learn More (secondary)
+   - CTA section: Start Free Trial (primary)
+*/
+
+/* Base button look */
+header a[href="#get-started"],
+header a[href="#learn-more"],
+/* CTA button lives inside the CTA section we sized earlier */
+.page section:has(a[href*="Start Free Trial"]) a[href="#get-started"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  min-width: 132px;
+  padding: 0 18px;
+  border-radius: 999px;                  /* pill */
+  font-weight: 600;
+  letter-spacing: .01em;
+  text-align: center;
+  line-height: 1;                        /* keeps text perfectly centered */
+  user-select: none;
+  outline: none;
+  transition: transform .12s ease, box-shadow .18s ease, background-color .18s ease, border-color .18s ease, color .18s ease, opacity .18s ease;
+  transform: translateZ(0);              /* prevents wobble */
+}
+
+/* Primary (orange) — header Get Started + CTA Start Free Trial */
+:root { --brand: #ff6b00; --brand-200:#ffa366; --brand-300:#ff8a33; --brand-600:#e65f00; }
+
+header a[href="#get-started"],
+.page section:has(a[href*="Start Free Trial"]) a[href="#get-started"] {
+  background: var(--brand);
+  color: #fff;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.06) inset,
+    0 8px 20px rgba(0,0,0,.35),
+    0 0 24px rgba(255,107,0,.22);
+}
+header a[href="#get-started"]:hover,
+.page section:has(a[href*="Start Free Trial"]) a[href="#get-started"]:hover {
+  background: var(--brand-300);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.08) inset,
+    0 10px 26px rgba(0,0,0,.38),
+    0 0 32px rgba(255,107,0,.30);
+  transform: translateY(-1px);
+}
+header a[href="#get-started"]:active,
+.page section:has(a[href*="Start Free Trial"]) a[href="#get-started"]:active {
+  background: var(--brand-600);
+  transform: translateY(0);
+}
+
+/* Secondary (glass) — header Learn More */
+header a[href="#learn-more"] {
+  background: rgba(255,255,255,.10);
+  color: rgba(255,255,255,.88);
+  border: 1px solid rgba(255,255,255,.16);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.06) inset,
+    0 8px 20px rgba(0,0,0,.28);
+}
+header a[href="#learn-more"]:hover {
+  background: rgba(255,255,255,.14);
+  border-color: rgba(255,255,255,.22);
+  transform: translateY(-1px);
+}
+header a[href="#learn-more"]:active {
+  background: rgba(255,255,255,.10);
+  transform: translateY(0);
+}
+
+/* Keyboard focus ring for all three (accessible but subtle) */
+header a[href="#get-started"]:focus-visible,
+header a[href="#learn-more"]:focus-visible,
+.page section:has(a[href*="Start Free Trial"]) a[href="#get-started"]:focus-visible {
+  box-shadow:
+    0 0 0 2px #000 inset,
+    0 0 0 3px rgba(255,255,255,.75) inset,
+    0 0 0 2px rgba(255,107,0,.55);
+}
+
+/* Slight size bump on mobile for easier tapping */
+@media (max-width: 640px) {
+  header a[href="#get-started"],
+  header a[href="#learn-more"],
+  .page section:has(a[href*="Start Free Trial"]) a[href="#get-started"] {
+    height: 44px;
+    min-width: 140px;
+    padding: 0 20px;
+  }
+}
