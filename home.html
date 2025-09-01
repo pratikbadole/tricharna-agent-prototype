@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="assets/tw.css">
   <link rel="stylesheet" href="assets/overrides.css?v=home1">
 
-  <!-- Keep canvas behind content -->
   <style>
     #bg-net { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
     .page   { position: relative; z-index: 1; }
@@ -16,10 +15,8 @@
   </style>
 </head>
 <body class="antialiased text-white page">
-  <!-- Background mesh canvas -->
   <canvas id="bg-net"></canvas>
 
-  <!-- Fallback: ensure canvas exists on slow DOMs -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       if (!document.getElementById('bg-net')) {
@@ -34,7 +31,6 @@
   <div class="mx-auto max-w-7xl px-6 md:px-10">
   <div class="mx-auto max-w-7xl px-6 md:px-10">
   <div class="mx-auto max-w-7xl px-6 md:px-10">
-    <!-- Header -->
 <header class="flex items-center justify-between py-6">
   <div class="text-xl md:text-2xl font-semibold tracking-tight text-white/90">StrataMind</div>
   <div class="flex items-center gap-3">
@@ -43,11 +39,8 @@
   </div>
 </header>
 
-<!-- Hero -->
 
-<!-- CTA (moved to footer) -->
 
-<!-- CTA (in footer) -->
 <section class="pt-2 md:pt-6 pb-6 grid md:grid-cols-2 gap-8 items-center">
   <div>
     <h1 class="text-4xl md:text-6xl font-bold leading-tight">Reimagining IT Support<br><span class="text-brand-400">with AI</span></h1>
@@ -59,7 +52,6 @@
 </section>
 
 
-<!-- Company Intro (above features) -->
 <section class="px-6 md:px-10 pb-4 max-w-5xl">
   <p class="text-white/80 leading-relaxed">
     StrataMind is an AI-first IT support platform for modern teams. We combine an instant AI helpdesk,
@@ -85,8 +77,6 @@
   </div>
 </section>
 
-<!-- Footer CTA (moved) -->
-<!-- CTA Banner (bottom) -->
 <section class="pb-12">
   <div class="mx-auto max-w-3xl glass rounded-2xl p-6 md:p-7 flex flex-col md:flex-row items-center justify-between gap-4">
     <h4 class="text-lg md:text-xl font-semibold">Ready to transform your IT support?</h4>
@@ -94,7 +84,6 @@
   </div>
 </section>
 
-<!-- Footer -->
     <footer class="px-6 md:px-10 pb-10 flex items-center justify-between text-white/60 text-sm">
       <div>© StrataMind</div>
       <nav class="flex gap-4">
@@ -105,14 +94,12 @@
       </nav>
     </footer>
 
-    <!-- Bottom-right watermark (if file exists) -->
     <img src="brand/stratamind-monogram.svg" alt="SM" style="position:fixed; right:18px; bottom:18px; width:28px; height:28px; opacity:.55; filter:drop-shadow(0 0 14px rgba(255,107,0,.25)); z-index:3;" />
   </div>
   </div>
   </div>
   </main>
 
-  <!-- Mesh background (animated) -->
   <script src="assets/bg/mesh-home.js?v=6" defer></script>
 </body>
 </html>
