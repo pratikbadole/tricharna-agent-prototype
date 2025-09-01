@@ -86,3 +86,12 @@
   <script src="assets/bg/mesh.js" defer></script>
 </body>
 </html>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  if (!document.getElementById('bg-net')) {
+    var c = document.createElement('canvas');
+    c.id = 'bg-net';
+    document.body.prepend(c);
+  }
+});
+</script>
