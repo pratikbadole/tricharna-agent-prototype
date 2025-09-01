@@ -499,3 +499,6 @@ html, body { background:#0b0b0f; }
 
 /* (Optional) remove any accidental global filters/overlays */
 body, .page { filter:none !important; mix-blend-mode:normal !important; }
+/* LAYOUT_POLISH */
+.container-nudge .glass{--tw-shadow-color: rgba(255,107,0,.18)}
+#features .glass:hover{transform: translateY(-2px)}
