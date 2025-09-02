@@ -873,3 +873,16 @@ main.page > .mx-auto.max-w-7xl.px-6.md\:px-10:has(#cta-promo)::before{
 
 /* keep footer breathing a touch */
 footer{ padding-top: 12px; }
+
+/* CTA_FLEX_SPACER_V2 */
+/* Match ANY direct child of main.page that contains #cta-promo */
+main.page > *:has(#cta-promo){
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+main.page > *:has(#cta-promo)::before{
+  content: "";
+  flex: 1 1 auto;   /* this pushes the CTA down */
+  min-height: 0;
+}
