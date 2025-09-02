@@ -1,0 +1,20 @@
+<svg width="128" height="128" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="StrataMind SM monogram (silver)">
+  <defs>
+    <linearGradient id="gs" x1="36" y1="24" x2="220" y2="232" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F6F7F8"/>
+      <stop offset="1" stop-color="#9BA0A6"/>
+    </linearGradient>
+    <filter id="gs-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect x="8" y="8" width="240" height="240" rx="28"
+        fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.08)"/>
+  <g filter="url(#gs-glow)" stroke="url(#gs)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M64 74 L128 128 L64 182"/>
+    <path d="M192 74 L128 128 L192 182"/>
+    <path d="M88 70 L128 98 L168 70"/>
+    <path d="M88 186 L128 158 L168 186"/>
+  </g>
+</svg>

@@ -1,0 +1,26 @@
+<svg width="96" height="96" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="256" y2="256" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF6B00"/>
+      <stop offset="1" stop-color="#FFB347"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- dark glass chip -->
+  <rect x="8" y="8" width="240" height="240" rx="28"
+        fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)"/>
+  <!-- interlocked SM strokes (clean geometric, not a copy) -->
+  <g filter="url(#glow)" stroke="url(#g)" stroke-width="20" stroke-linecap="round" stroke-linejoin="round">
+    <!-- S-style diagonal -->
+    <path d="M56 64 L128 128 L56 192"/>
+    <!-- mirrored diagonal to complete the interlock -->
+    <path d="M200 64 L128 128 L200 192"/>
+    <!-- short chevron ears to hint the M apex -->
+    <path d="M88 64 L128 96 L168 64"/>
+    <path d="M88 192 L128 160 L168 192"/>
+  </g>
+</svg>
