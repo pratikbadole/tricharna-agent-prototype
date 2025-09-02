@@ -746,3 +746,13 @@ main.page .mx-auto.max-w-7xl:has(#cta-promo){
 main.page .mx-auto.max-w-7xl:has(#cta-promo) #cta-promo{
   margin-top: auto;            /* now it actually takes effect */
 }
+
+/* CTA_STICKY_FIX_V2 */
+main.page{
+  display:flex;
+  flex-direction:column;
+  min-height:100vh;
+}
+main.page #cta-promo{
+  margin-top:auto;   /* pushes CTA to the bottom of the page column */
+}
