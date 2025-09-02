@@ -901,3 +901,6 @@ main.page > *:has(#features):has(#cta-promo){
 
 /* give footer a hair of space from the CTA card */
 footer{ padding-top: 12px; }
+
+/* CTA_TIGHTEN */
+#features{ padding-top: 1.25rem; padding-bottom: 1.25rem; } /* was 2rem+ */
