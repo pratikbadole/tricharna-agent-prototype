@@ -856,3 +856,20 @@ footer{ margin-top:12px; }     /* a bit of breathing room above legal links */
 main.page > .mx-auto.max-w-7xl.px-6.md\:px-10:has(#cta-promo){
   min-height:0 !important;
 }
+
+/* CTA_FLEX_SPACER */
+main.page > .mx-auto.max-w-7xl.px-6.md\:px-10:has(#cta-promo){
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;               /* guarantee there's height to push into */
+}
+
+/* the spacer that grows to fill leftover space above the CTA */
+main.page > .mx-auto.max-w-7xl.px-6.md\:px-10:has(#cta-promo)::before{
+  content: "";
+  flex: 1 1 auto;                  /* this is what actually pushes CTA down */
+  min-height: 0;
+}
+
+/* keep footer breathing a touch */
+footer{ padding-top: 12px; }
