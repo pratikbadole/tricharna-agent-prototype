@@ -6,7 +6,7 @@
   <title>StrataMind — Home</title>
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="assets/tw.css">
-  <link rel="stylesheet" href="assets/overrides.css?v=cta7"?v=home1">
+  <link rel="stylesheet" href="assets/overrides.css?v=cta7-home1">
 
   <!-- Keep canvas behind content -->
   <style>
@@ -114,14 +114,39 @@
 
   <!-- Mesh background (animated) -->
   <script src="assets/bg/mesh-home.js?v=6" defer></script>
-  <script>
-    (function () {
-      const cta  = document.getElementById('cta-promo');
-      const foot = document.querySelector('footer');
-      if (cta && foot && !foot.contains(cta)) {
-        foot.prepend(cta);            // move CTA into the footer safely
-      }
-    })();
-  </script>
-</body>
+  </body>
 </html>
+<!-- Pin CTA just above footer without changing layout -->
+<script>
+(() => {
+  function pinCTA() {
+    const cta = document.getElementById('cta-promo');
+    const foot = document.querySelector('footer');
+    if (!cta || !foot) return;
+
+    // Reset before measuring
+    cta.style.marginTop = '';
+
+    const viewportH = window.innerHeight;
+    const ctaRect    = cta.getBoundingClientRect();
+    const footRect   = foot.getBoundingClientRect();
+
+    // We want CTA bottom to sit 16px above the top of the footer
+    const targetBottom = viewportH - footRect.height - 16;
+    const delta = Math.floor(targetBottom - ctaRect.bottom);
+
+    // Positive delta means we can push CTA down with extra margin-top
+    cta.style.marginTop = (delta > 0 ? delta : 0) + 'px';
+  }
+
+  // Only do this when CTA is NOT already in <footer>
+  window.addEventListener('load', () => {
+    const cta  = document.getElementById('cta-promo');
+    const foot = document.querySelector('footer');
+    if (cta && foot && !foot.contains(cta)) {
+      pinCTA();
+      window.addEventListener('resize', pinCTA);
+    }
+  });
+})();
+</script>
