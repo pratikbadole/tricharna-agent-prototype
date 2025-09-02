@@ -945,3 +945,6 @@ footer #cta-promo{ margin-bottom: 12px; }
 @media (min-width: 768px){
   #cta-spacer { height: 80px; }
 }
+/* FOOTER_GAP_HOTFIX */
+footer{ margin-top: 64px; }           /* tweak 64 -> 48/80 as you like */
+@media (min-width:768px){ footer{ margin-top: 80px; } }
