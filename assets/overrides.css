@@ -940,3 +940,8 @@ main.page > *:has(#cta-promo){
 footer #cta-promo{ margin-bottom: 12px; }
 /* CTA_PIN_FORCE */
 #cta-promo{ margin-top: var(--cta-offset, 0px) !important; }
+/* CTA_SPACER_FIX */
+#cta-spacer { height: 64px; }                   /* adjust as needed */
+@media (min-width: 768px){
+  #cta-spacer { height: 80px; }
+}
