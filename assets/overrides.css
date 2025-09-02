@@ -1087,3 +1087,14 @@ footer{
   backdrop-filter: blur(6px);
 }
 # problem-solution .glass{ background: rgba(20,20,20,.35); border: 1px solid rgba(255,255,255,.12); }
+/* INFO_SECTIONS */
+.vision-pill{
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:.45rem .9rem; border-radius:999px;
+  background:linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,.08));
+  border:1px solid rgba(255,255,255,.20);
+  box-shadow:0 6px 18px rgba(0,0,0,.30), inset 0 1px 0 rgba(255,255,255,.16);
+  color:rgba(255,255,255,.92); font-weight:600; font-size:.95rem; letter-spacing:.2px;
+  backdrop-filter:blur(6px);
+}
+#problem-solution .glass{ background:rgba(20,20,20,.35); border:1px solid rgba(255,255,255,.12); }
