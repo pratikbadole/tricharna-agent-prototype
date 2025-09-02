@@ -921,3 +921,17 @@ main.page > *:has(#cta-promo)::after{
 
 /* keep CTA itself neutral; spacer does the pushing */
 #cta-promo{ margin-top: 0; }
+/* CTA_PUSH_VIA_FEATURES */
+main.page > *:has(#cta-promo){
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;           /* full viewport height for the wrapper */
+}
+
+/* Push CTA down without touching markup */
+#features{
+  margin-bottom: auto;          /* creates elastic space below features */
+}
+
+/* Keep CTA neutral (spacer handles pushing) */
+#cta-promo{ margin-top: 0; }
