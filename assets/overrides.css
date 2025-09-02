@@ -792,3 +792,23 @@ main.page > .mx-auto.max-w-7xl {
 
 /* (Optional) tiny breath above the legal links */
 footer { padding-top: 12px; }
+
+/* CTA_STICKY_SCOPE */
+/* Ensure main can host a full-height section stack */
+main.page{
+  display: block;             /* keep main itself block; no global change */
+  min-height: 100vh;          /* page at least viewport height */
+}
+
+/* Only the wrapper that CONTAINS the CTA becomes a flex column that fills the viewport */
+main.page > .mx-auto.max-w-7xl:has(#cta-promo){
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;          /* now the CTA can push to the bottom of the screen */
+}
+
+/* The CTA section does the pushing */
+#cta-promo{
+  margin-top: auto;           /* push toward footer */
+  padding-bottom: 1rem;       /* small gap above footer */
+}
