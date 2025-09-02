@@ -812,3 +812,15 @@ main.page > .mx-auto.max-w-7xl:has(#cta-promo){
   margin-top: auto;           /* push toward footer */
   padding-bottom: 1rem;       /* small gap above footer */
 }
+
+/* CTA_STICKY_SOLID */
+main.page{display:flex;flex-direction:column;min-height:100vh;}
+/* make the single inner wrapper fill the column and stack its children */
+main.page > .mx-auto.max-w-7xl.px-6.md\:px-10{
+  display:flex;
+  flex-direction:column;
+  flex:1 1 auto;              /* <- this is the key */
+  min-height:100%;
+}
+#cta-promo{ margin-top:auto; } /* pushes CTA to bottom of the wrapper */
+footer{ margin-top:12px; }     /* a bit of breathing room above legal links */
