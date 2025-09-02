@@ -150,3 +150,52 @@
   });
 })();
 </script>
+<!-- Pin CTA just above footer without changing layout (v2) -->
+<script>
+(() => {
+  function pinCTA() {
+    const cta  = document.getElementById('cta-promo');
+    const foot = document.querySelector('footer');
+    if (!cta || !foot) return;
+
+    // Reset before measuring
+    cta.style.marginTop = '';
+
+    const vh = window.innerHeight;
+    const ctaRect  = cta.getBoundingClientRect();
+    const footRect = foot.getBoundingClientRect();
+
+    // Aim for a clearer visual: 24px gap
+    const GAP = 24;
+
+    // Where should CTA bottom sit?
+    const targetBottom = footRect.top - GAP;
+
+    // How much do we need to push it down?
+    let delta = Math.floor(targetBottom - ctaRect.bottom);
+
+    // If content is short, give the CTA a little minimum nudge so you see movement
+    const MIN_NUDGE = 16;
+    if (delta > 0 && delta < MIN_NUDGE) delta = MIN_NUDGE;
+
+    // Never go negative
+    cta.style.marginTop = (delta > 0 ? delta : 0) + 'px';
+  }
+
+  const boot = () => {
+    const cta  = document.getElementById('cta-promo');
+    const foot = document.querySelector('footer');
+    // Only when CTA is in main flow (not inside the footer)
+    if (cta && foot && !foot.contains(cta)) {
+      pinCTA();
+      window.addEventListener('resize', pinCTA, { passive: true });
+    }
+  };
+
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    requestAnimationFrame(boot);
+  } else {
+    window.addEventListener('DOMContentLoaded', boot, { once: true });
+  }
+})();
+</script>
