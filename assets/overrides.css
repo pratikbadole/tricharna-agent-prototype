@@ -956,3 +956,21 @@ footer #cta-promo{ padding-top:0; padding-bottom:0; margin:0; }
 
 /* Ensure the glass card itself doesn't add bottom space */
 footer #cta-promo > .glass{ margin:0; }
+
+/* CTA_FOOTER_GAP_FIX */
+/* Make sure the wrapper still pushes CTA to the bottom */
+main.page > *:has(#cta-promo){
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Features create elastic space below themselves (the spacer) */
+#features{ margin-bottom: auto; }
+
+/* Force a normal, positive gap between CTA card and the legal row.
+   This overrides any stray negative margins coming from elsewhere. */
+footer{ margin-top: 16px !important; }
+
+/* Ensure the CTA itself isn’t adding bottom margin that fights the footer gap */
+#cta-promo{ margin-bottom: 0 !important; }
