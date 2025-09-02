@@ -756,3 +756,22 @@ main.page{
 main.page #cta-promo{
   margin-top:auto;   /* pushes CTA to the bottom of the page column */
 }
+
+/* CTA_STICKY_FORCE */
+/* Only on pages that contain #cta-promo, make the page wrapper a column-flex
+   so the CTA can push into the footer space with margin-top:auto */
+main.page:has(#cta-promo){
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+/* The CTA block pushes to the bottom of the page wrapper */
+main.page:has(#cta-promo) #cta-promo{
+  margin-top: auto;
+}
+
+/* Optional: tighten the CTA block so it doesn’t feel too tall */
+main.page:has(#cta-promo) #cta-promo .glass{ padding-top: 18px; padding-bottom: 18px; }
+@media (min-width: 768px){
+  main.page:has(#cta-promo) #cta-promo .glass{ padding-top: 22px; padding-bottom: 22px; }
+}
