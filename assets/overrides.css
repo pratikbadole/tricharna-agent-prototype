@@ -736,3 +736,13 @@ section:has(a[href="#get-started"]) a[href="#get-started"]:focus-visible {
 .page{display:flex; flex-direction:column; min-height:100vh;}
 #cta-promo{ margin-top:auto; }           /* pushes CTA to the bottom of .page */
 footer{ padding-top:12px; }              /* tiny breathe above legal links */
+
+/* CTA_STICKY_FIX */
+main.page .mx-auto.max-w-7xl:has(#cta-promo){
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;           /* allow the CTA to push to bottom */
+}
+main.page .mx-auto.max-w-7xl:has(#cta-promo) #cta-promo{
+  margin-top: auto;            /* now it actually takes effect */
+}
