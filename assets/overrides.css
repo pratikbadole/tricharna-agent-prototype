@@ -948,3 +948,11 @@ footer #cta-promo{ margin-bottom: 12px; }
 /* FOOTER_GAP_HOTFIX */
 footer{ margin-top: 64px; }           /* tweak 64 -> 48/80 as you like */
 @media (min-width:768px){ footer{ margin-top: 80px; } }
+/* FOOTER_STACK_TIGHT */
+footer{ display:flex; flex-direction:column; gap:12px; }
+
+/* Kill the large padding that was on the CTA section inside the footer */
+footer #cta-promo{ padding-top:0; padding-bottom:0; margin:0; }
+
+/* Ensure the glass card itself doesn't add bottom space */
+footer #cta-promo > .glass{ margin:0; }
