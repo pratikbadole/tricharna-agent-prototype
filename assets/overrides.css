@@ -735,3 +735,6 @@ section:has(a[href="#get-started"]) a[href="#get-started"]:focus-visible {
 /* FOOTER_CTA_SPACING */
 #footer-cta{ margin-top: 12px; }
 footer.site-footer{ padding: 16px 0; }
+
+/* FOOTER_CTA_SPACING */
+#footer-cta{ margin-top: 12px; }
