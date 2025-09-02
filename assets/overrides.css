@@ -1027,10 +1027,7 @@ footer{
 /* PILL_HEADING */
 .pill-heading{
   display:inline-flex; align-items:center; justify-content:center;
-  padding:10px 16px; gap:.5rem;
-  border-radius:9999px;
-  font-weight:600;
-  letter-spacing:.2px;
+  padding:10px 16px; gap:.5rem; border-radius:9999px; font-weight:600; letter-spacing:.2px;
   background:
     radial-gradient(120% 120% at 10% 0%, rgba(255,255,255,.16) 0%, rgba(255,255,255,0) 60%),
     linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
