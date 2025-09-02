@@ -6,7 +6,7 @@
   <title>StrataMind — Home</title>
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="assets/tw.css">
-  <link rel="stylesheet" href="assets/overrides.css?v=cta6"?v=home1">
+  <link rel="stylesheet" href="assets/overrides.css?v=cta7"?v=home1">
 
   <!-- Keep canvas behind content -->
   <style>
@@ -114,5 +114,14 @@
 
   <!-- Mesh background (animated) -->
   <script src="assets/bg/mesh-home.js?v=6" defer></script>
+  <script>
+    (function () {
+      const cta  = document.getElementById('cta-promo');
+      const foot = document.querySelector('footer');
+      if (cta && foot && !foot.contains(cta)) {
+        foot.prepend(cta);            // move CTA into the footer safely
+      }
+    })();
+  </script>
 </body>
 </html>
