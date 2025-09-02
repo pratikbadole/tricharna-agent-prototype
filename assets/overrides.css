@@ -775,3 +775,20 @@ main.page:has(#cta-promo) #cta-promo .glass{ padding-top: 18px; padding-bottom: 
 @media (min-width: 768px){
   main.page:has(#cta-promo) #cta-promo .glass{ padding-top: 22px; padding-bottom: 22px; }
 }
+
+/* CTA_STICKY_LAYOUT */
+/* Make the main content wrapper fill the viewport and stack vertically */
+main.page > .mx-auto.max-w-7xl {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* so the CTA can push to the bottom of the screen */
+}
+
+/* Ensure the CTA is the thing that gets pushed down */
+#cta-promo { 
+  margin-top: auto;          /* push toward footer */
+  padding-bottom: 1rem;      /* tighten spacing above footer */
+}
+
+/* (Optional) tiny breath above the legal links */
+footer { padding-top: 12px; }
