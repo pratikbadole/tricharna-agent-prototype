@@ -904,3 +904,20 @@ footer{ padding-top: 12px; }
 
 /* CTA_TIGHTEN */
 #features{ padding-top: 1.25rem; padding-bottom: 1.25rem; } /* was 2rem+ */
+
+/* CTA_BOTTOM_SPACER */
+main.page > *:has(#cta-promo){
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;        /* give the wrapper full viewport height */
+}
+
+/* flexible spacer that pushes CTA down */
+main.page > *:has(#cta-promo)::after{
+  content: "";
+  display: block;
+  flex: 1 1 auto;           /* this is the magic */
+}
+
+/* keep CTA itself neutral; spacer does the pushing */
+#cta-promo{ margin-top: 0; }
