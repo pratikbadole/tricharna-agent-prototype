@@ -886,3 +886,18 @@ main.page > *:has(#cta-promo)::before{
   flex: 1 1 auto;   /* this pushes the CTA down */
   min-height: 0;
 }
+
+/* CTA_FLEX_STABLE */
+main.page > *:has(#features):has(#cta-promo){
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;      /* fill the viewport */
+}
+
+/* The CTA pushes itself to the bottom of that wrapper */
+#cta-promo{
+  margin-top: auto !important; /* "auto" will show as "0px" in computed styles—this is OK */
+}
+
+/* give footer a hair of space from the CTA card */
+footer{ padding-top: 12px; }
