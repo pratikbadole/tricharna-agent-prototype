@@ -938,3 +938,5 @@ main.page > *:has(#cta-promo){
 #cta-promo{ margin-top: 0; }
 /* FOOTER_CTA_RUNTIME_MOVE */
 footer #cta-promo{ margin-bottom: 12px; }
+/* CTA_PIN_FORCE */
+#cta-promo{ margin-top: var(--cta-offset, 0px) !important; }
