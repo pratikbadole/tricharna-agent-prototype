@@ -6,7 +6,7 @@
   <title>StrataMind — Home</title>
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="assets/tw.css">
-  <link rel="stylesheet" href="assets/overrides.css?v=home1">
+  <link rel="stylesheet" href="assets/overrides.css?v=cta5">
 
   <!-- Keep canvas behind content -->
   <style>
@@ -95,7 +95,9 @@
 </section>
 
 <!-- Footer -->
-    <footer class="px-6 md:px-10 pb-10 flex items-center justify-between text-white/60 text-sm">
+    <div id="cta-spacer" style="height:64px"></div>
+<div id="cta-spacer"></div>
+<footer class="px-6 md:px-10 pb-10 flex items-center justify-between text-white/60 text-sm">
       <div>© StrataMind</div>
       <nav class="flex gap-4">
         <a href="#" class="hover:text-white/90">About</a>
@@ -114,5 +116,78 @@
 
   <!-- Mesh background (animated) -->
   <script src="assets/bg/mesh-home.js?v=6" defer></script>
-</body>
+  </body>
 </html>
+
+<!-- Pin CTA just above footer without changing layout (v2) -->
+<script>
+(() => {
+  function pinCTA() {
+    const cta  = document.getElementById('cta-promo');
+    const foot = document.querySelector('footer');
+    if (!cta || !foot) return;
+
+    // Reset before measuring
+    cta.style.marginTop = '';
+
+    const vh = window.innerHeight;
+    const ctaRect  = cta.getBoundingClientRect();
+    const footRect = foot.getBoundingClientRect();
+
+    // Aim for a clearer visual: 24px gap
+    const GAP = 24;
+
+    // Where should CTA bottom sit?
+    const targetBottom = footRect.top - GAP;
+
+    // How much do we need to push it down?
+    let delta = Math.floor(targetBottom - ctaRect.bottom);
+
+    // If content is short, give the CTA a little minimum nudge so you see movement
+    const MIN_NUDGE = 16;
+    if (delta > 0 && delta < MIN_NUDGE) delta = MIN_NUDGE;
+
+    // Never go negative
+    cta.style.marginTop = (delta > 0 ? delta : 0) + 'px';
+  }
+
+  const boot = () => {
+    const cta  = document.getElementById('cta-promo');
+    const foot = document.querySelector('footer');
+    // Only when CTA is in main flow (not inside the footer)
+    if (cta && foot && !foot.contains(cta)) {
+      pinCTA();
+      window.addEventListener('resize', pinCTA, { passive: true });
+    }
+  };
+
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    requestAnimationFrame(boot);
+  } else {
+    window.addEventListener('DOMContentLoaded', boot, { once: true });
+  }
+})();
+</script>
+<!-- Pin CTA just above footer (CSS var + important) -->
+<script>
+(function(){
+  var cta  = document.getElementById('cta-promo');
+  var foot = document.querySelector('footer');
+  if (!cta || !foot) return;
+
+  function update(){
+    var b = cta.getBoundingClientRect();
+    var f = foot.getBoundingClientRect();
+    var GAP = 24;                              // visual gap you want
+    var delta = Math.max(0, Math.round(f.top - GAP - b.bottom));
+    document.documentElement.style.setProperty('--cta-offset', delta + 'px');
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', update, { once: true });
+  } else {
+    update();
+  }
+  window.addEventListener('resize', update, { passive: true });
+})();
+</script>
