@@ -6,7 +6,7 @@
   <title>StrataMind — Home</title>
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="assets/tw.css">
-  <link rel="stylesheet" href="assets/overrides.css?v=refresh7">
+  <link rel="stylesheet" href="assets/overrides.css?v=fixpack1">
 
   <!-- Keep canvas behind content -->
   <style>
@@ -61,8 +61,9 @@
   <div class="pill-wrap"><span class="pill">Our Vision</span></div>
   <div class="glass rounded-2xl p-6 md:p-8 max-w-5xl mx-auto">
     <p class="text-white/75 text-sm md:text-base">
-      We believe IT support should be proactive, not reactive. StrataMind leverages AI to deliver instant resolutions,
-      seamless ticketing, and a continuously improving knowledge base—transforming IT into a true partner for modern enterprises.
+      We believe IT support should be proactive, not reactive. StrataMind uses AI to resolve routine issues instantly,
+      route complex tickets to the right owner, and continuously enrich a shared knowledge base—so teams stay focused
+      on meaningful work while support becomes faster, calmer, and measurably better.
     </p>
   </div>
 </section>
@@ -140,7 +141,6 @@
   </div>
 
 <!-- Footer -->
-    <div id="cta-spacer" style="height:64px"></div>
 
     <!-- Bottom-right watermark (if file exists) -->
     <img src="brand/stratamind-monogram.svg" alt="SM" style="position:fixed; right:18px; bottom:18px; width:28px; height:28px; opacity:.55; filter:drop-shadow(0 0 14px rgba(255,107,0,.25)); z-index:3;" />
@@ -154,76 +154,3 @@
     <script src="assets/cta-gap-fix.js?v=1"></script>
 </body>
 </html>
-
-<!-- Pin CTA just above footer without changing layout (v2) -->
-<script>
-(() => {
-  function pinCTA() {
-    const cta  = document.getElementById('cta-promo');
-    const foot = document.querySelector('footer');
-    if (!cta || !foot) return;
-
-    // Reset before measuring
-    cta.style.marginTop = '';
-
-    const vh = window.innerHeight;
-    const ctaRect  = cta.getBoundingClientRect();
-    const footRect = foot.getBoundingClientRect();
-
-    // Aim for a clearer visual: 24px gap
-    const GAP = 24;
-
-    // Where should CTA bottom sit?
-    const targetBottom = footRect.top - GAP;
-
-    // How much do we need to push it down?
-    let delta = Math.floor(targetBottom - ctaRect.bottom);
-
-    // If content is short, give the CTA a little minimum nudge so you see movement
-    const MIN_NUDGE = 16;
-    if (delta > 0 && delta < MIN_NUDGE) delta = MIN_NUDGE;
-
-    // Never go negative
-    cta.style.marginTop = (delta > 0 ? delta : 0) + 'px';
-  }
-
-  const boot = () => {
-    const cta  = document.getElementById('cta-promo');
-    const foot = document.querySelector('footer');
-    // Only when CTA is in main flow (not inside the footer)
-    if (cta && foot && !foot.contains(cta)) {
-      pinCTA();
-      window.addEventListener('resize', pinCTA, { passive: true });
-    }
-  };
-
-  if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    requestAnimationFrame(boot);
-  } else {
-    window.addEventListener('DOMContentLoaded', boot, { once: true });
-  }
-})();
-</script>
-<!-- Pin CTA just above footer (CSS var + important) -->
-<script>
-(function(){
-  var cta  = document.getElementById('cta-promo');
-  var foot = document.querySelector('footer');
-  if (!cta || !foot) return;
-
-  function update(){
-    var b = cta.getBoundingClientRect();
-    var f = foot.getBoundingClientRect();
-    var GAP = 24;                              // visual gap you want
-    var delta = Math.max(0, Math.round(f.top - GAP - b.bottom));
-    document.documentElement.style.setProperty('--cta-offset', delta + 'px');
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', update, { once: true });
-  } else {
-    update();
-  }
-  window.addEventListener('resize', update, { passive: true });
-})();
-</script>
