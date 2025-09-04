@@ -1092,3 +1092,11 @@ main.page > *:has(#cta-promo){ display:flex; flex-direction:column; min-height:1
 #cta-legal a:hover{color:rgba(255,255,255,.85)}
 /* keep only the inline legal; collapse any legacy footer bar if it appears */
 footer{margin-top:0 !important;padding-top:0 !important;height:0;overflow:hidden}
+
+/* STRETCHED_LINK */
+.glass.relative{position:relative}
+.stretched-link{position:absolute; inset:0; border-radius:inherit}
+
+/* HOME_MESH_VIS */
+#bg-net{position:fixed; inset:0; z-index:0; pointer-events:none;}
+.page{position:relative; z-index:1;}
