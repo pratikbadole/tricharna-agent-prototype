@@ -157,5 +157,32 @@
   <!-- Mesh background (animated) -->
   <script src="assets/bg/mesh-home.js?v=6" defer></script>
     <script src="assets/cta-gap-fix.js?v=1"></script>
+<!-- FEATURE_CARD_ROUTING_V2 -->
+<script>
+(function(){
+  var root = document.getElementById('features');
+  if(!root) return;
+  var cards = root.querySelectorAll('.glass');
+  cards.forEach(function(card){
+    var h3 = card.querySelector('h3');
+    if(!h3) return;
+    var label = (h3.textContent||'').trim().toLowerCase();
+    var href = null;
+    if(label.indexOf('ai helpdesk')>-1) href = 'ai-helpdesk.html';
+    else if(label.indexOf('smart ticketing')>-1) href = 'tickets.html';
+    else if(label.indexOf('knowledge hub')>-1) href = 'knowledge.html';
+    if(href){
+      card.setAttribute('role','link');
+      card.setAttribute('tabindex','0');
+      card.addEventListener('click', function(){ window.location.href = href; });
+      card.addEventListener('keydown', function(e){
+        if(e.key==='Enter' || e.key===' '){
+          e.preventDefault(); window.location.href = href;
+        }
+      });
+    }
+  });
+})();
+</script>
 </body>
 </html>

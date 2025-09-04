@@ -1102,3 +1102,5 @@ footer{margin-top:0 !important;padding-top:0 !important;height:0;overflow:hidden
 .page{position:relative; z-index:1;}
 /* FEATURE_CARD_LINK */
 #features .glass[role="link"]{ cursor: pointer; }
+/* FEATURE_CARD_LINK */
+#features .glass[role="link"]{ cursor: pointer; }
