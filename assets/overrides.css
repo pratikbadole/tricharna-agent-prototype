@@ -1100,3 +1100,5 @@ footer{margin-top:0 !important;padding-top:0 !important;height:0;overflow:hidden
 /* HOME_MESH_VIS */
 #bg-net{position:fixed; inset:0; z-index:0; pointer-events:none;}
 .page{position:relative; z-index:1;}
+/* FEATURE_CARD_LINK */
+#features .glass[role="link"]{ cursor: pointer; }
