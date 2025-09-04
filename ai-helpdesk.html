@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>StrataMind — AI Helpdesk</title>
+  <link rel="stylesheet" href="assets/tw.css">
+  <link rel="stylesheet" href="assets/overrides.css">
+</head>
+<body class="antialiased text-white page">
+  <!-- Reuse your canvas mesh -->
+  <canvas id="bg-net" aria-hidden="true"></canvas>
+
+  <main class="min-h-screen">
+    <!-- Header -->
+    <header class="px-6 md:px-10 py-6 flex items-center justify-between">
+      <div class="text-xl md:text-2xl font-semibold tracking-tight text-white/90">StrataMind</div>
+      <nav class="flex items-center gap-3">
+        <a href="home.html" class="px-4 py-2 rounded-full bg-white/10 backdrop-blur border border-white/15 hover:bg-white/15 text-white/90 text-sm transition">Home</a>
+      </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="px-6 md:px-10 pt-2 md:pt-4 pb-4">
+      <h1 class="text-3xl md:text-5xl font-bold leading-tight">AI Helpdesk</h1>
+      <p class="mt-2 text-white/70 max-w-2xl">Ask anything. Get step-by-step fixes, ticket suggestions, and knowledge links — instantly.</p>
+    </section>
+
+    <!-- Chat Panel -->
+    <section class="px-6 md:px-10 pb-10">
+      <div class="glass rounded-2xl p-4 md:p-6 max-w-4xl">
+        <div id="ai-chat" class="flex flex-col gap-3">
+          <div id="ai-chat-messages" class="min-h-[320px] max-h-[60vh] overflow-auto pr-1"></div>
+
+          <form id="ai-chat-form" class="flex gap-2 pt-2">
+            <textarea id="ai-chat-input" rows="2" placeholder="Describe your issue (e.g., 'VPN keeps disconnecting on macOS 14')." class="flex-1 px-3 py-2 rounded-lg bg-bg1 border border-text1 text-white placeholder:text-text1/70 focus:outline-none focus:ring-2 focus:ring-brand-500"></textarea>
+            <button type="submit" class="px-4 py-2 rounded-lg bg-brand-500 hover:bg-brand-400 text-white transition shadow-[0_0_18px_rgba(255,107,0,.25)]">Send</button>
+          </form>
+
+          <div id="ai-chat-demo" class="hidden text-sm text-white/70">
+            <span class="text-brand-400">Demo mode:</span> No live backend detected. I’ll answer with placeholder text so you can style the UI. Wire a server endpoint at <code>/api/chat</code> or set <code>window.STRATAMIND_CHAT_ENDPOINT</code>.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Watermark -->
+    <img src="brand/stratamind-monogram.svg" alt="SM" style="position:fixed; right:18px; bottom:18px; width:28px; height:28px; opacity:.55; filter:drop-shadow(0 0 14px rgba(255,107,0,.25)); z-index:3;"/>
+  </main>
+
+  <!-- Reuse your mesh + hook up chat -->
+  <script src="assets/bg/mesh-home.js?v=live" defer></script>
+  <script type="module">
+    import { sendChatMessage } from './assets/js/chat-client.js';
+
+    const $msgs = document.getElementById('ai-chat-messages');
+    const $form = document.getElementById('ai-chat-form');
+    const $input = document.getElementById('ai-chat-input');
+    const $demo = document.getElementById('ai-chat-demo');
+
+    let history = [];
+
+    function pushBubble(role, text){
+      const wrap = document.createElement('div');
+      wrap.className = role === 'user'
+        ? 'self-end max-w-[85%] rounded-xl px-3 py-2 bg-white/10 border border-white/15'
+        : 'self-start max-w-[85%] rounded-xl px-3 py-2 bg-white/5 border border-white/10';
+      wrap.innerText = text;
+      $msgs.appendChild(wrap);
+      $msgs.scrollTop = $msgs.scrollHeight;
+    }
+
+    async function send(text){
+      pushBubble('user', text);
+      const res = await sendChatMessage({ text, history });
+      if(!res.ok){
+        $demo.classList.remove('hidden');
+        pushBubble('assistant', 'Demo reply: I would walk you through steps, propose a ticket, and link knowledge. Connect /api/chat to go live.');
+        return;
+      }
+      const reply = res.data?.reply || 'Okay! Connected. How can I assist further?';
+      history = res.data?.history || [...history, {role:'user', content:text}, {role:'assistant', content:reply}];
+      pushBubble('assistant', reply);
+    }
+
+    $form.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const text = $input.value.trim();
+      if(!text) return;
+      $input.value = '';
+      send(text);
+    });
+  </script>
+</body>
+</html>
